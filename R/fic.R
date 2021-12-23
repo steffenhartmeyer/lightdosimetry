@@ -21,30 +21,33 @@
 #'    60(14), 1200–1208. \url{https://doi.org/10.1080/09500340.2013.845700}
 #'
 #' @examples
-fic = function(lightVar,
-               threshold,
-               na.rm = TRUE,
-               as_df = TRUE,
-               wide = TRUE){
+fic <- function(lightVar,
+                threshold,
+                na.rm = TRUE,
+                as_df = TRUE,
+                wide = TRUE) {
 
   # Remove NAs
-  if(na.rm) lightVar = na.omit(lightVar)
+  if (na.rm) lightVar <- na.omit(lightVar)
 
-  df = tibble::tibble(threshold = numeric(), fic = numeric())
+  df <- tibble::tibble(threshold = numeric(), fic = numeric())
 
   # Calculate FIC
-  for(c in threshold){
-    fic = sum(abs(diff(lightVar >= c)))
-    df = df %>% tidyr::add_row(threshold = c, fic = fic)
+  for (c in threshold) {
+    fic <- sum(abs(diff(lightVar >= c)))
+    df <- df %>% tidyr::add_row(threshold = c, fic = fic)
   }
 
   # Reshape to wide format
-  if(wide){
-    df = df %>% tidyr::pivot_wider(names_from = threshold, values_from = fic)
-    if(ncol(df) == 1) names(df) = paste0("fic.", names(df))
+  if (wide) {
+    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = fic)
+    if (ncol(df) == 1) names(df) <- paste0("fic.", names(df))
   }
 
   # Return data frame or numeric matrix
-  if(as_df) return(df)
-  else return(as.numeric(df))
+  if (as_df) {
+    return(df)
+  } else {
+    return(as.numeric(df))
+  }
 }

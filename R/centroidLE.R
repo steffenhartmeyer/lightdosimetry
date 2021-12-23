@@ -24,38 +24,43 @@
 
 #'
 #' @examples
-centroidLE = function(lightVar,
-                      dtVar,
-                      bin_size = NULL,
-                      na.rm = TRUE,
-                      as_df = TRUE){
+centroidLE <- function(lightVar,
+                       dtVar,
+                       bin_size = NULL,
+                       na.rm = TRUE,
+                       as_df = TRUE) {
+  df <- tibble::tibble(
+    light = lightVar,
+    datetime = dtVar
+  )
 
-  df = tibble::tibble(light = lightVar,
-                      datetime = dtVar)
-
-  if(!is.null(bin_size)){
+  if (!is.null(bin_size)) {
     # Check whether bin size specification is correct
-    if((is.character(bin_size) & !lubridate::is.POSIXct(dtVar)) |
-       (!is.character(bin_size) & lubridate::is.POSIXct(dtVar))){
+    if ((is.character(bin_size) & !lubridate::is.POSIXct(dtVar)) |
+      (!is.character(bin_size) & lubridate::is.POSIXct(dtVar))) {
       stop("Bin size specification not compatible with type of datetime variable!")
     }
     # Average into bins
-    df = df %>%
+    df <- df %>%
       dplyr::group_by(datetime = cut(datetime, breaks = bin_size, labels = FALSE)) %>%
       dplyr::summarise(light = mean(light, na.rm = na.rm))
   }
 
   # Calculate weighted mean
-  weights = (df$light/sum(df$light))
-  centroidLE = sum(as.numeric(df$datetime)*weights)
+  weights <- (df$light / sum(df$light))
+  centroidLE <- sum(as.numeric(df$datetime) * weights)
 
   # Convert to POSIXct
-  if(lubridate::is.POSIXct(dtVar)){
-    centroidLE = centroidLE %>%
-      round() %>% lubridate::as_datetime(tz = lubridate::tz(dtVar))
+  if (lubridate::is.POSIXct(dtVar)) {
+    centroidLE <- centroidLE %>%
+      round() %>%
+      lubridate::as_datetime(tz = lubridate::tz(dtVar))
   }
 
   # Return data frame or numeric vector
-  if(as_df) return(tibble::tibble(centroidLE = val))
-  else return(val)
+  if (as_df) {
+    return(tibble::tibble(centroidLE = val))
+  } else {
+    return(val)
+  }
 }

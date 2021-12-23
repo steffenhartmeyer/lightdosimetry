@@ -33,37 +33,42 @@ NULL
 #'
 #' @export
 #'
-mlit = function(lightVar,
-                dtVar,
-                threshold,
-                as_df = TRUE,
-                wide = TRUE){
-
-  df = tibble::tibble(threshold = numeric(), mlit = numeric())
+mlit <- function(lightVar,
+                 dtVar,
+                 threshold,
+                 as_df = TRUE,
+                 wide = TRUE) {
+  df <- tibble::tibble(threshold = numeric(), mlit = numeric())
 
   # Calculate MLiT
-  for(c in threshold){
-    mlit = dtVar[threshold(lightVar,c)] %>% as.numeric() %>% mean()
-    df = df %>% tidyr::add_row(threshold = c, mlit = mlit)
+  for (c in threshold) {
+    mlit <- dtVar[threshold(lightVar, c)] %>%
+      as.numeric() %>%
+      mean()
+    df <- df %>% tidyr::add_row(threshold = c, mlit = mlit)
   }
 
   # Convert to POSIXct
-  if(lubridate::is.POSIXct(dtVar)){
-    df = df %>%
+  if (lubridate::is.POSIXct(dtVar)) {
+    df <- df %>%
       dplyr::mutate_at(dyplr::vars(mlit), round) %>%
       dyplr::mutate_at(dyplr::vars(mlit), lubridate::as_datetime,
-                       tz = lubridate::tz(dtVar))
+        tz = lubridate::tz(dtVar)
+      )
   }
 
   # Reshape to wide format
-  if(wide){
-    df = df %>% tidyr::pivot_wider(names_from = threshold, values_from = mlit)
-    if(ncol(df) == 1) names(df) = paste0("mlit.", names(df))
+  if (wide) {
+    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = mlit)
+    if (ncol(df) == 1) names(df) <- paste0("mlit.", names(df))
   }
 
   # Return data frame or matrix
-  if(as_df) return(df)
-  else return(as.numeric(df))
+  if (as_df) {
+    return(df)
+  } else {
+    return(as.numeric(df))
+  }
 }
 
 # FLiT --------------------------------------------------------------------
@@ -74,36 +79,38 @@ mlit = function(lightVar,
 #'
 #' @export
 #'
-flit = function(lightVar,
-                dtVar,
-                threshold,
-                as_df = TRUE,
-                wide = TRUE){
-
-  df = tibble::tibble(threshold = numeric(), flit = numeric())
+flit <- function(lightVar,
+                 dtVar,
+                 threshold,
+                 as_df = TRUE,
+                 wide = TRUE) {
+  df <- tibble::tibble(threshold = numeric(), flit = numeric())
 
   # Calculate FLiT
-  for(c in threshold){
-    flit = dtVar[threshold(lightVar,c)][1] %>% as.numeric()
-    df = df %>% tidyr::add_row(threshold = c, flit = flit)
+  for (c in threshold) {
+    flit <- dtVar[threshold(lightVar, c)][1] %>% as.numeric()
+    df <- df %>% tidyr::add_row(threshold = c, flit = flit)
   }
 
   # Convert to POSIXct
-  if(lubridate::is.POSIXct(dtVar)){
-    df = df %>%
+  if (lubridate::is.POSIXct(dtVar)) {
+    df <- df %>%
       dplyr::mutate_at(dyplr::vars(flit), round) %>%
       dyplr::mutate_at(dyplr::vars(flit), lubridate::as_datetime,
-                       tz = lubridate::tz(dtVar))
+        tz = lubridate::tz(dtVar)
+      )
   }
 
   # Reshape to wide format
-  if(wide){
-    df = df %>% tidyr::pivot_wider(names_from = threshold, values_from = flit)
-    if(ncol(df) == 1) names(df) = paste0("flit.", names(df))
+  if (wide) {
+    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = flit)
+    if (ncol(df) == 1) names(df) <- paste0("flit.", names(df))
   }
 
   # Return data frame or matrix
-  if(as_df) return(df)
+  if (as_df) {
+    return(df)
+  }
 }
 
 # LLiT --------------------------------------------------------------------
@@ -114,34 +121,38 @@ flit = function(lightVar,
 #'
 #' @export
 #'
-llit = function(lightVar,
-                dtVar,
-                threshold,
-                as_df = TRUE,
-                wide = TRUE){
-
-  df = tibble::tibble(threshold = numeric(), llit = numeric())
+llit <- function(lightVar,
+                 dtVar,
+                 threshold,
+                 as_df = TRUE,
+                 wide = TRUE) {
+  df <- tibble::tibble(threshold = numeric(), llit = numeric())
 
   # Calculate LLiT
-  for(c in threshold){
-    llit = dtVar[threshold(lightVar,c)] %>% dplyr::last() %>% as.numeric()
-    df = df %>% tidyr::add_row(threshold = c, llit = llit)
+  for (c in threshold) {
+    llit <- dtVar[threshold(lightVar, c)] %>%
+      dplyr::last() %>%
+      as.numeric()
+    df <- df %>% tidyr::add_row(threshold = c, llit = llit)
   }
 
   # Convert to POSIXct
-  if(lubridate::is.POSIXct(dtVar)){
-    df = df %>%
+  if (lubridate::is.POSIXct(dtVar)) {
+    df <- df %>%
       dplyr::mutate_at(dyplr::vars(llit), round) %>%
       dyplr::mutate_at(dyplr::vars(llit), lubridate::as_datetime,
-                       tz = lubridate::tz(dtVar))
+        tz = lubridate::tz(dtVar)
+      )
   }
 
   # Reshape to wide format
-  if(wide){
-    df = df %>% tidyr::pivot_wider(names_from = threshold, values_from = llit)
-    if(ncol(df) == 1) names(df) = paste0("llit.", names(df))
+  if (wide) {
+    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = llit)
+    if (ncol(df) == 1) names(df) <- paste0("llit.", names(df))
   }
 
   # Return data frame or matrix
-  if(as_df) return(df)
+  if (as_df) {
+    return(df)
+  }
 }

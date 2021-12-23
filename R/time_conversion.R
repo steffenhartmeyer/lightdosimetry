@@ -18,13 +18,14 @@ NULL
 #'
 #' @export
 #'
-to.secs = function(t, unit){
-  unit = substr(unit,1,1)
+to.secs <- function(t, unit) {
+  unit <- substr(unit, 1, 1)
   switch(unit,
-         "m" = t * 60,
-         "h" = t * 3600,
-         "d" = t * 86400,
-         stop("Invalid unit. Possible values are ['m', 'h', 'd']!"))
+    "m" = t * 60,
+    "h" = t * 3600,
+    "d" = t * 86400,
+    stop("Invalid unit. Possible values are ['m', 'h', 'd']!")
+  )
 }
 
 #' @rdname time_conversion
@@ -33,13 +34,14 @@ to.secs = function(t, unit){
 #'
 #' @export
 #'
-to.mins = function(t, unit){
-  unit = substr(unit,1,1)
+to.mins <- function(t, unit) {
+  unit <- substr(unit, 1, 1)
   switch(unit,
-         "s" = t / 60,
-         "h" = t * 60,
-         "d" = t * 1440,
-         stop("Invalid unit. Possible values are ['s', 'h', 'd']!"))
+    "s" = t / 60,
+    "h" = t * 60,
+    "d" = t * 1440,
+    stop("Invalid unit. Possible values are ['s', 'h', 'd']!")
+  )
 }
 
 #' @rdname time_conversion
@@ -48,13 +50,14 @@ to.mins = function(t, unit){
 #'
 #' @export
 #'
-to.hours = function(t, unit){
-  unit = substr(unit,1,1)
-  switch (unit,
-          "s" = t / 3600,
-          "m" = t / 60,
-          "d" = t * 24,
-          stop("Invalid unit. Possible values are ['s', 'm', 'd']!"))
+to.hours <- function(t, unit) {
+  unit <- substr(unit, 1, 1)
+  switch(unit,
+    "s" = t / 3600,
+    "m" = t / 60,
+    "d" = t * 24,
+    stop("Invalid unit. Possible values are ['s', 'm', 'd']!")
+  )
 }
 
 #' @rdname time_conversion
@@ -63,13 +66,14 @@ to.hours = function(t, unit){
 #'
 #' @export
 #'
-to.days = function(t, unit){
-  unit = substr(unit,1,1)
-  switch (unit,
-          "s" = t / 86400,
-          "m" = t / 1440,
-          "h" = t / 24,
-          stop("Invalid unit. Possible values are ['s', 'm', 'h']!"))
+to.days <- function(t, unit) {
+  unit <- substr(unit, 1, 1)
+  switch(unit,
+    "s" = t / 86400,
+    "m" = t / 1440,
+    "h" = t / 24,
+    stop("Invalid unit. Possible values are ['s', 'm', 'h']!")
+  )
 }
 
 #' @rdname time_conversion
@@ -78,13 +82,14 @@ to.days = function(t, unit){
 #'
 #' @export
 #'
-from.secs = function(t, unit){
-  unit = substr(unit,1,1)
+from.secs <- function(t, unit) {
+  unit <- substr(unit, 1, 1)
   switch(unit,
-         "m" = t / 60,
-         "h" = t / 3600,
-         "d" = t / 86400,
-         stop("Invalid unit. Possible values are ['m', 'h', 'd']!"))
+    "m" = t / 60,
+    "h" = t / 3600,
+    "d" = t / 86400,
+    stop("Invalid unit. Possible values are ['m', 'h', 'd']!")
+  )
 }
 
 #' @rdname time_conversion
@@ -93,13 +98,14 @@ from.secs = function(t, unit){
 #'
 #' @export
 #'
-from.mins = function(t, unit){
-  unit = substr(unit,1,1)
+from.mins <- function(t, unit) {
+  unit <- substr(unit, 1, 1)
   switch(unit,
-         "s" = t * 60,
-         "h" = t / 60,
-         "d" = t / 1440,
-         stop("Invalid unit. Possible values are ['s', 'h', 'd']!"))
+    "s" = t * 60,
+    "h" = t / 60,
+    "d" = t / 1440,
+    stop("Invalid unit. Possible values are ['s', 'h', 'd']!")
+  )
 }
 
 #' @rdname time_conversion
@@ -108,13 +114,14 @@ from.mins = function(t, unit){
 #'
 #' @export
 #'
-from.hours = function(t, unit){
-  unit = substr(unit,1,1)
-  switch (unit,
-          "s" = t * 3600,
-          "m" = t * 60,
-          "d" = t / 24,
-          stop("Invalid unit. Possible values are ['s', 'm', 'd']!"))
+from.hours <- function(t, unit) {
+  unit <- substr(unit, 1, 1)
+  switch(unit,
+    "s" = t * 3600,
+    "m" = t * 60,
+    "d" = t / 24,
+    stop("Invalid unit. Possible values are ['s', 'm', 'd']!")
+  )
 }
 
 #' @rdname time_conversion
@@ -123,11 +130,12 @@ from.hours = function(t, unit){
 #'
 #' @export
 #'
-from.days = function(t, unit){
-  unit = substr(unit,1,1)
-  switch (unit,
-          "s" = t * 86400,
-          "m" = t * 1440,
-          "h" = t * 24,
-          stop("Invalid unit. Possible values are ['s', 'm', 'h']!"))
+from.days <- function(t, unit) {
+  unit <- substr(unit, 1, 1)
+  switch(unit,
+    "s" = t * 86400,
+    "m" = t * 1440,
+    "h" = t * 24,
+    stop("Invalid unit. Possible values are ['s', 'm', 'h']!")
+  )
 }

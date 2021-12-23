@@ -31,69 +31,79 @@ NULL
 #> NULL
 
 #' @rdname tat
-tat = function(lightVar,
-               threshold,
-               sampling_int = 60,
-               unit_out = "mins",
-               na.rm = TRUE,
-               as_df = TRUE,
-               wide = TRUE){
-
-  df = tibble::tibble(threshold = numeric(),
-                      tat = numeric())
-  for(c in threshold){
-    val = (sum(threshold(lightVar, c), na.rm=na.rm) * sampling_int) %>%
+tat <- function(lightVar,
+                threshold,
+                sampling_int = 60,
+                unit_out = "mins",
+                na.rm = TRUE,
+                as_df = TRUE,
+                wide = TRUE) {
+  df <- tibble::tibble(
+    threshold = numeric(),
+    tat = numeric()
+  )
+  for (c in threshold) {
+    val <- (sum(threshold(lightVar, c), na.rm = na.rm) * sampling_int) %>%
       from.secs(unit_out)
-    df = df %>% tibble::add_row(threshold = c, tat = val)
+    df <- df %>% tibble::add_row(threshold = c, tat = val)
   }
 
   # Reshape to wide format
-  if(wide){
-    df = df %>% tidyr::pivot_wider(names_from = threshold, values_from = tat)
-    if(ncol(df)==1)
-      names(df) = paste0("tat.", names(df))
+  if (wide) {
+    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = tat)
+    if (ncol(df) == 1) {
+      names(df) <- paste0("tat.", names(df))
+    }
   }
   # Return as df or numeric matrix
-  if(as_df) return(df)
-  else return(as.numeric(df))
+  if (as_df) {
+    return(df)
+  } else {
+    return(as.numeric(df))
+  }
 }
 
 
 #' @rdname tat
-tatr = function(lightVar,
-                lower,
-                upper,
-                sampling_int = 60,
-                unit_out = "mins",
-                na.rm=TRUE,
-                as_df = TRUE,
-                wide=TRUE){
+tatr <- function(lightVar,
+                 lower,
+                 upper,
+                 sampling_int = 60,
+                 unit_out = "mins",
+                 na.rm = TRUE,
+                 as_df = TRUE,
+                 wide = TRUE) {
 
   # Check that lower and upper bounds are same length
-  if(length(lower) != length(upper)){
+  if (length(lower) != length(upper)) {
     stop("Lower and upper bounds must be same length.")
   }
 
-  df = tibble::tibble(threshold_min = numeric(),
-              threshold_max = numeric(),
-              tat = numeric())
-  for(i in 1:length(lower)){
-    cmin = lower[i]
-    cmax = upper[i]
-    val = (sum(between(lightVar, cmin, cmax), na.rm=na.rm) * sampling_int) %>%
+  df <- tibble::tibble(
+    threshold_min = numeric(),
+    threshold_max = numeric(),
+    tat = numeric()
+  )
+  for (i in 1:length(lower)) {
+    cmin <- lower[i]
+    cmax <- upper[i]
+    val <- (sum(between(lightVar, cmin, cmax), na.rm = na.rm) * sampling_int) %>%
       from.secs(unit_out)
-    df = df %>% tibble::add_row(threshold_min=cmin, threshold_max=cmax, tat=val)
+    df <- df %>% tibble::add_row(threshold_min = cmin, threshold_max = cmax, tat = val)
   }
 
   # Reshape to wide format
-  if(wide){
-    df = df %>% tidyr::unite(threshold, threshold_min, threshold_max) %>%
+  if (wide) {
+    df <- df %>%
+      tidyr::unite(threshold, threshold_min, threshold_max) %>%
       tidyr::pivot_wider(names_from = threshold, values_from = tat)
-    if(ncol(df)==1) names(df) = paste0("tat.",names(df))
+    if (ncol(df) == 1) names(df) <- paste0("tat.", names(df))
   }
 
   # Return as data frame or matrix
-  if(as_df) return(df)
-  else return(as.numeric(df))
+  if (as_df) {
+    return(df)
+  } else {
+    return(as.numeric(df))
+  }
 }
-

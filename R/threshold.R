@@ -12,8 +12,11 @@
 #' @export
 #'
 #' @examples
-threshold = function(light, threshold){
-  if(threshold < 0) out = light <= abs(threshold)
-  else out = light >= threshold
+threshold <- function(light, threshold) {
+  if (threshold < 0) {
+    out <- light <= abs(threshold)
+  } else {
+    out <- light >= threshold
+  }
   replace_na(out, FALSE)
 }

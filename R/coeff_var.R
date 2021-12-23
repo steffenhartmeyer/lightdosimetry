@@ -12,10 +12,13 @@
 #' @export
 #'
 #' @examples
-coeff_var = function(lightVar,
-                     na.rm = TRUE,
-                     as_df = TRUE){
-  cv = sd(lightVar, na.rm=na.rm)/mean(lightVar, na.rm=na.rm)
-  if(as_df) return(tibble::tibble(coeff_var = cv))
-  else return(cv)
+coeff_var <- function(lightVar,
+                      na.rm = TRUE,
+                      as_df = TRUE) {
+  cv <- sd(lightVar, na.rm = na.rm) / mean(lightVar, na.rm = na.rm)
+  if (as_df) {
+    return(tibble::tibble(coeff_var = cv))
+  } else {
+    return(cv)
+  }
 }

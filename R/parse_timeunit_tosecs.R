@@ -18,11 +18,14 @@
 #' \dontrun{
 #' parse_timeunit_tosecs("30min")
 #' }
-parse_timeunit_tosecs = function(input){
-  if(!stringr::str_detect(input, "\\d+ (s|m|h|d)"))
+parse_timeunit_tosecs <- function(input) {
+  if (!stringr::str_detect(input, "\\d+ (s|m|h|d)")) {
     stop("Wrong time unit specification! Must be '[numeric] ['s','m','h','d']'.")
-  parsed = stringr::str_split(input, " ")[[1]]
-  list(secs = to.secs(as.numeric(parsed[1]), parsed[2]),
-       time = parsed[1],
-       unit = parsed[2])
+  }
+  parsed <- stringr::str_split(input, " ")[[1]]
+  list(
+    secs = to.secs(as.numeric(parsed[1]), parsed[2]),
+    time = parsed[1],
+    unit = parsed[2]
+  )
 }

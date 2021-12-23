@@ -17,18 +17,21 @@
 #'  \emph{Frontiers in Neuroscience}, 13. \url{https://doi.org/10.3389/fnins.2019.00882}
 #'
 #' @examples
-midpointCE = function(lightVar,
-                      dtVar,
-                      as_df = TRUE){
+midpointCE <- function(lightVar,
+                       dtVar,
+                       as_df = TRUE) {
   # Replace NAs with 0
-  lightVar[is.na(lightVar)] = 0
+  lightVar[is.na(lightVar)] <- 0
 
   # Find midpoint of CE
-  cumsum = cumsum(lightVar)
-  halfSum = cumsum[length(cumsum)]/2
-  midpoint = which.min(abs(cumsum-halfSum))
+  cumsum <- cumsum(lightVar)
+  halfSum <- cumsum[length(cumsum)] / 2
+  midpoint <- which.min(abs(cumsum - halfSum))
 
   # Return as data frame or numeric vector
-  if(as_df) return(tibble::tibble(midpointCE = dtVar[midpoint]))
-  else return(dtVar[midpoint])
+  if (as_df) {
+    return(tibble::tibble(midpointCE = dtVar[midpoint]))
+  } else {
+    return(dtVar[midpoint])
+  }
 }

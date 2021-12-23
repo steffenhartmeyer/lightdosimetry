@@ -37,33 +37,36 @@ NULL
 #'
 #' @export
 #'
-flit_angle = function(lightVar,
-                      dtVar,
-                      threshold,
-                      unit_out = "minutes",
-                      as_df = TRUE,
-                      wide = TRUE){
+flit_angle <- function(lightVar,
+                       dtVar,
+                       threshold,
+                       unit_out = "minutes",
+                       as_df = TRUE,
+                       wide = TRUE) {
+  df <- tibble::tibble(threshold = numeric(), flit_angle = numeric())
 
-  df = tibble::tibble(threshold = numeric(), flit_angle = numeric())
-
-  #Calculate FLiT Angle
-  for(c in threshold){
-    flit = dtVar[threshold(lightVar,c)][1]
-    flit_angle = (flit - dtVar[1])
-    if(lubridate::is.POSIXct(dtVar))
-      flit_angle = flit_angle %>% as.numeric(units = unit_out)
-    df = df %>% tidyr::add_row(threshold = c, flit_angle = flit_angle)
+  # Calculate FLiT Angle
+  for (c in threshold) {
+    flit <- dtVar[threshold(lightVar, c)][1]
+    flit_angle <- (flit - dtVar[1])
+    if (lubridate::is.POSIXct(dtVar)) {
+      flit_angle <- flit_angle %>% as.numeric(units = unit_out)
+    }
+    df <- df %>% tidyr::add_row(threshold = c, flit_angle = flit_angle)
   }
 
   # Reshape to wide format
-  if(wide){
-    df = df %>% tidyr::pivot_wider(names_from = threshold, values_from = flit_angle)
-    if(ncol(df) == 1) names(df) = paste0("flit_angle.", names(df))
+  if (wide) {
+    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = flit_angle)
+    if (ncol(df) == 1) names(df) <- paste0("flit_angle.", names(df))
   }
 
   # Return data frame or numeric matrix
-  if(as_df) return(df)
-  else return(as.numeric(df))
+  if (as_df) {
+    return(df)
+  } else {
+    return(as.numeric(df))
+  }
 }
 
 
@@ -76,30 +79,34 @@ flit_angle = function(lightVar,
 #'
 #' @export
 #'
-llit_angle = function(lightVar,
-                      dtVar,
-                      threshold,
-                      unit_out = "mins",
-                      as_df = TRUE,
-                      wide = TRUE){
-  df = tibble::tibble(threshold = numeric(), llit_angle = numeric())
+llit_angle <- function(lightVar,
+                       dtVar,
+                       threshold,
+                       unit_out = "mins",
+                       as_df = TRUE,
+                       wide = TRUE) {
+  df <- tibble::tibble(threshold = numeric(), llit_angle = numeric())
 
   # Calculate LLiT Angle
-  for(c in threshold){
-    llit = dtVar[threshold(lightVar,c)] %>% dplyr::last()
-    llit_angle = (dtVar[length(dtVar)] - llit)
-    if(lubridate::is.POSIXct(dtVar))
-      llit_angle = llit_angle %>% as.numeric(units = unit_out)
-    df = df %>% tidyr::add_row(threshold = c, llit_angle = llit_angle)
+  for (c in threshold) {
+    llit <- dtVar[threshold(lightVar, c)] %>% dplyr::last()
+    llit_angle <- (dtVar[length(dtVar)] - llit)
+    if (lubridate::is.POSIXct(dtVar)) {
+      llit_angle <- llit_angle %>% as.numeric(units = unit_out)
+    }
+    df <- df %>% tidyr::add_row(threshold = c, llit_angle = llit_angle)
   }
 
   # Reshape to wide format
-  if(wide){
-    df = df %>% tidyr::pivot_wider(names_from = threshold, values_from = llit_angle)
-    if(ncol(df) == 1) names(df) = paste0("llit_angle.", names(df))
+  if (wide) {
+    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = llit_angle)
+    if (ncol(df) == 1) names(df) <- paste0("llit_angle.", names(df))
   }
 
   # Return data frame or numeric matrix
-  if(as_df) return(df)
-  else return(as.numeric(df))
+  if (as_df) {
+    return(df)
+  } else {
+    return(as.numeric(df))
+  }
 }

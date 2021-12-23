@@ -28,15 +28,18 @@
 #'
 #'
 #' @examples
-lqi = function(lightVar,
-               upper = 500,
-               lower = 10,
-               sampling_int = 60,
-               na.rm = TRUE,
-               as_df = TRUE){
-  high = tat(lightVar, upper, sampling_int, na.rm=na.rm)[[1]]
-  low = tat(lightVar, -1*lower, sampling_int, na.rm=na.rm)[[1]]
-  lqi = (high - low) / (high + low)
-  if(as_df) return(tibble::tibble(LQI = lqi))
-  else return(lqi)
+lqi <- function(lightVar,
+                upper = 500,
+                lower = 10,
+                sampling_int = 60,
+                na.rm = TRUE,
+                as_df = TRUE) {
+  high <- tat(lightVar, upper, sampling_int, na.rm = na.rm)[[1]]
+  low <- tat(lightVar, -1 * lower, sampling_int, na.rm = na.rm)[[1]]
+  lqi <- (high - low) / (high + low)
+  if (as_df) {
+    return(tibble::tibble(LQI = lqi))
+  } else {
+    return(lqi)
+  }
 }
