@@ -27,10 +27,10 @@ centroidLE = function(lightVar,
                       datetime = dtVar)
 
   if(!is.null(bin_size)){
-    # Check whether correct bin size specification
+    # Check whether bin size specification is correct
     if((is.character(bin_size) & !lubridate::is.POSIXct(dtVar)) |
        (!is.character(bin_size) & lubridate::is.POSIXct(dtVar))){
-      stop("Bin size specification not compatible with type of datetime variable")
+      stop("Bin size specification not compatible with type of datetime variable!")
     }
     # Average into bins
     df = df %>%

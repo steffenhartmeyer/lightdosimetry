@@ -1,4 +1,3 @@
-
 #' Light above or below threshold?
 #'
 #' Convenience function to determine whether light is above or below threshold.
