@@ -2,6 +2,7 @@
 
 export("%>%")
 export(centroidLE)
+export(fic)
 export(flit)
 export(flit_angle)
 export(from.days)

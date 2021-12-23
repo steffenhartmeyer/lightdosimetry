@@ -21,3 +21,9 @@ Single column data frame or vector.
 This function calculates the timing corresponding to half of the cumulative
 light exposure within the given time series.
 }
+\references{
+Shochat, T., Santhi, N., Herer, P., Flavell, S. A., Skeldon, A. C.,
+  & Dijk, D.-J. (2019). Sleep Timing in Late Autumn and Late Spring Associates
+ With Light Exposure Rather Than Sun Time in College Students.
+ \emph{Frontiers in Neuroscience}, 13. \url{https://doi.org/10.3389/fnins.2019.00882}
+}
