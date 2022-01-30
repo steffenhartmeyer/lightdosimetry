@@ -17,13 +17,13 @@
 #' @examples
 intervalToRows <- function(df, rowvar, from, to, by, removeBounds = TRUE) {
   df <- df %>%
-    rowwise() %>%
-    mutate({{ rowvar }} := ifelse(is.na({{ from }}) | is.na({{ to }}),
+    dplyr::rowwise() %>%
+    dplyr::mutate({{ rowvar }} := ifelse(is.na({{ from }}) | is.na({{ to }}),
       list(NA),
       list(seq({{ from }}, {{ to }}, by))
     )) %>%
-    unnest(cols = c({{ rowvar }})) %>%
-    ungroup()
-  if (removeBounds) df <- df %>% select(!c({{ from }}, {{ to }}))
+    tidyr::unnest(cols = c({{ rowvar }})) %>%
+    dplyr::ungroup()
+  if (removeBounds) df <- df %>% dplyr::select(!c({{ from }}, {{ to }}))
   return(df)
 }
