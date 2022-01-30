@@ -46,8 +46,9 @@ Data frame or matrix with pairs of timespan and calculated values.
 }
 \description{
 This function finds the brightest or darkest continuous period of a given
-timespan and calculates its `mean` light level, `onset`, `midpoint`, and
-`offset`. Defined as the period with the maximum or minimum mean light level.
+timespan and calculates its \code{mean} light level, \code{onset},
+\code{midpoint}, and \code{offset}. Defined as the period with the maximum
+or minimum mean light level.
 }
 \details{
 Assumes 24h light data. Otherwise, results may not be meaningful.
