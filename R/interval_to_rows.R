@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-intervalToRows <- function(df, rowvar, from, to, by, removeBounds = TRUE) {
+interval_to_rows <- function(df, rowvar, from, to, by, removeBounds = TRUE) {
   df <- df %>%
     dplyr::rowwise() %>%
     dplyr::mutate({{ rowvar }} := ifelse(is.na({{ from }}) | is.na({{ to }}),
