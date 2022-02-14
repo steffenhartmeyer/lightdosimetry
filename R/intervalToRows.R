@@ -27,3 +27,4 @@ intervalToRows <- function(df, rowvar, from, to, by, removeBounds = TRUE) {
   if (removeBounds) df <- df %>% dplyr::select(!c({{ from }}, {{ to }}))
   return(df)
 }
+
