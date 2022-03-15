@@ -195,7 +195,7 @@ pulses_above_threshold <- function(lightVar,
   # Convert to POSIXct
   if (lubridate::is.POSIXct(dtVar)) {
     df <- df %>%
-      dyplr::mutate_at(
+      dplyr::mutate_at(
         dplyr::vars(mean_pulse_midpoint:mean_pulse_offset), round
       ) %>%
       dplyr::mutate_at(
