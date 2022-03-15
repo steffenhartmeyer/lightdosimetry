@@ -10,7 +10,7 @@ max_min_period(
   timespan,
   period_type,
   sampling_int = 60,
-  loop = TRUE,
+  loop = FALSE,
   na.rm = TRUE,
   as_df = TRUE,
   wide = TRUE
@@ -30,7 +30,7 @@ See \code{\link{parse_timeunit_tosecs}}.}
 
 \item{sampling_int}{Numeric. Sampling interval in seconds. Defaults to 60.}
 
-\item{loop}{Logical. Should the data be looped? Defaults to TRUE}
+\item{loop}{Logical. Should the data be looped? Defaults to FALSE.}
 
 \item{na.rm}{Logical. Should missing values be removed? Defaults to TRUE.}
 

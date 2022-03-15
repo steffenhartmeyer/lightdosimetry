@@ -47,10 +47,10 @@ max_min_period <- function(lightVar,
   )
 
   # Loop data
-  if(loop){
+  if (loop) {
     lightVar <- c(lightVar, lightVar)
-    sampling_int <- (dtVar[2]-dtVar[1])
-    span <- (dtVar[length(dtVar)]-dtVar[1])
+    sampling_int <- (dtVar[2] - dtVar[1])
+    span <- (dtVar[length(dtVar)] - dtVar[1])
     dtVar <- c(dtVar, dtVar + span + sampling_int)
   }
 
