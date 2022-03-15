@@ -26,11 +26,13 @@
 #' @export
 #'
 #' @examples
-#' @name tat
+#' @name tatx
 NULL
-#> NULL
 
-#' @rdname tat
+#' @rdname tatx
+#'
+#' @details `tat()` calculates the time above/below threshold.
+#'
 tat <- function(lightVar,
                 threshold,
                 sampling_int = 60,
@@ -67,7 +69,10 @@ tat <- function(lightVar,
 }
 
 
-#' @rdname tat
+#' @rdname tatx
+#'
+#' @details `tatr()` calculates the time within threshold range.
+#'
 tatr <- function(lightVar,
                  lower,
                  upper,
