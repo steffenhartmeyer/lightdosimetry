@@ -57,11 +57,11 @@ mlit <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>% tidyr::pivot_wider(
-      names_from = threshold, values_from = mlit,
-      names_sep = "."
-    )
-    if (ncol(df) == 1) names(df) <- paste0("mlit.", names(df))
+    df <- df %>%
+      tidyr::pivot_wider(
+        names_from = threshold,
+        values_from = mlit,
+        names_prefix = "mlit.")
   }
 
   # Return data frame or matrix
@@ -104,11 +104,11 @@ flit <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>% tidyr::pivot_wider(
-      names_from = threshold, values_from = flit,
-      names_sep = "."
-    )
-    if (ncol(df) == 1) names(df) <- paste0("flit.", names(df))
+    df <- df %>%
+      tidyr::pivot_wider(
+        names_from = threshold,
+        values_from = flit,
+        names_prefix = "flit.")
   }
 
   # Return data frame or matrix
@@ -151,11 +151,11 @@ llit <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>% tidyr::pivot_wider(
-      names_from = threshold, values_from = llit,
-      names_sep = "."
-    )
-    if (ncol(df) == 1) names(df) <- paste0("llit.", names(df))
+    df <- df %>%
+      tidyr::pivot_wider(
+        names_from = threshold,
+        values_from = llit,
+        names_prefix = "llit.")
   }
 
   # Return data frame or matrix

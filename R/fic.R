@@ -40,8 +40,11 @@ fic <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = fic)
-    if (ncol(df) == 1) names(df) <- paste0("fic.", names(df))
+    df <- df %>%
+      tidyr::pivot_wider(
+        names_from = threshold,
+        values_from = fic,
+        names_prefix = "fic.")
   }
 
   # Return data frame or numeric matrix

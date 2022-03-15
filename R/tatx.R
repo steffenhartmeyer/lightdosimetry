@@ -53,12 +53,10 @@ tat <- function(lightVar,
   # Reshape to wide format
   if (wide) {
     df <- df %>% tidyr::pivot_wider(
-      names_from = threshold, values_from = tat,
-      names_sep = "."
+      names_from = threshold,
+      values_from = tat,
+      names_prefix = "tat."
     )
-    if (ncol(df) == 1) {
-      names(df) <- paste0("tat.", names(df))
-    }
   }
   # Return as df or numeric matrix
   if (as_df) {
@@ -107,10 +105,10 @@ tatr <- function(lightVar,
     df <- df %>%
       tidyr::unite(threshold, threshold_min, threshold_max) %>%
       tidyr::pivot_wider(
-        names_from = threshold, values_from = tat,
-        names_sep = "."
+        names_from = threshold,
+        values_from = tat,
+        names_prefix = "tat."
       )
-    if (ncol(df) == 1) names(df) <- paste0("tat.", names(df))
   }
 
   # Return as data frame or matrix

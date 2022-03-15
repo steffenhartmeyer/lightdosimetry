@@ -56,8 +56,11 @@ flit_angle <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = flit_angle)
-    if (ncol(df) == 1) names(df) <- paste0("flit_angle.", names(df))
+    df <- df %>%
+      tidyr::pivot_wider(
+        names_from = threshold,
+        values_from = flit_angle,
+        names_prefix = "flit_angle.")
   }
 
   # Return data frame or numeric matrix
@@ -98,8 +101,11 @@ llit_angle <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = llit_angle)
-    if (ncol(df) == 1) names(df) <- paste0("llit_angle.", names(df))
+    df <- df %>%
+      tidyr::pivot_wider(
+        names_from = threshold,
+        values_from = llit_angle,
+        names_prefix = "llit_angle.")
   }
 
   # Return data frame or numeric matrix
