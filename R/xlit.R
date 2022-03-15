@@ -28,7 +28,6 @@ NULL
 #'    & Zee, P. C. (2014). Timing and Intensity of Light Correlate with Body Weight
 #'     in Adults. \emph{PLOS ONE}, 9(4), e92251.
 #'      \url{https://doi.org/10.1371/journal.pone.0092251}
-
 #'
 #' @export
 #'

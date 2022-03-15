@@ -23,15 +23,15 @@
 #'
 #' @return Data frame or matrix with pairs of threshold and calculated values.
 #'    If wide is TRUE then variable names will be concatenated with the threshold.
-#' @export
 #'
-#' @examples
 #' @name tatx
 NULL
 
 #' @rdname tatx
 #'
 #' @details `tat()` calculates the time above/below threshold.
+#'
+#' @export
 #'
 tat <- function(lightVar,
                 threshold,
@@ -72,6 +72,8 @@ tat <- function(lightVar,
 #' @rdname tatx
 #'
 #' @details `tatr()` calculates the time within threshold range.
+#'
+#' @export
 #'
 tatr <- function(lightVar,
                  lower,
