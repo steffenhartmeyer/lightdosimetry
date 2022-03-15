@@ -178,7 +178,7 @@ pulses_above_threshold <- function(lightVar,
     p_off <- unlist(lapply(clusters.dt, last)) %>% mean(na.rm = TRUE)
     p_mid <- unlist(lapply(clusters.dt, mean)) %>% mean(na.rm = TRUE)
     df <- df %>%
-      tidyr::add_row(
+      tibble::add_row(
         threshold = c,
         number_pulses = p_n,
         mean_pulse_intensity = p_mean,

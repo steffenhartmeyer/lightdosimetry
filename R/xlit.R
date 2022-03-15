@@ -43,7 +43,7 @@ mlit <- function(lightVar,
     mlit <- dtVar[threshold(lightVar, c)] %>%
       as.numeric() %>%
       mean()
-    df <- df %>% tidyr::add_row(threshold = c, mlit = mlit)
+    df <- df %>% tibble::add_row(threshold = c, mlit = mlit)
   }
 
   # Convert to POSIXct
@@ -90,7 +90,7 @@ flit <- function(lightVar,
   # Calculate FLiT
   for (c in threshold) {
     flit <- dtVar[threshold(lightVar, c)][1] %>% as.numeric()
-    df <- df %>% tidyr::add_row(threshold = c, flit = flit)
+    df <- df %>% tibble::add_row(threshold = c, flit = flit)
   }
 
   # Convert to POSIXct
@@ -137,7 +137,7 @@ llit <- function(lightVar,
     llit <- dtVar[threshold(lightVar, c)] %>%
       dplyr::last() %>%
       as.numeric()
-    df <- df %>% tidyr::add_row(threshold = c, llit = llit)
+    df <- df %>% tibble::add_row(threshold = c, llit = llit)
   }
 
   # Convert to POSIXct

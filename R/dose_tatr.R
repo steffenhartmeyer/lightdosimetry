@@ -60,10 +60,10 @@ dose_tatr <- function(lightVar,
     df <- df %>%
       tidyr::unite(threshold, threshold_min, threshold_max) %>%
       tidyr::pivot_wider(
-        names_from = threshold, values_from = dose_tat,
-        names_sep = "."
+        names_from = threshold,
+        values_from = dose_tat,
+        names_prefix = "dose_tat."
       )
-    if (ncol(df) == 1) names(df) <- paste0("dose_tat.", names(df))
   }
 
   # Return as data frame or matrix

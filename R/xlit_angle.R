@@ -51,7 +51,7 @@ flit_angle <- function(lightVar,
     if (lubridate::is.POSIXct(dtVar)) {
       flit_angle <- flit_angle %>% as.numeric(units = unit_out)
     }
-    df <- df %>% tidyr::add_row(threshold = c, flit_angle = flit_angle)
+    df <- df %>% tibble::add_row(threshold = c, flit_angle = flit_angle)
   }
 
   # Reshape to wide format
@@ -96,7 +96,7 @@ llit_angle <- function(lightVar,
     if (lubridate::is.POSIXct(dtVar)) {
       llit_angle <- llit_angle %>% as.numeric(units = unit_out)
     }
-    df <- df %>% tidyr::add_row(threshold = c, llit_angle = llit_angle)
+    df <- df %>% tibble::add_row(threshold = c, llit_angle = llit_angle)
   }
 
   # Reshape to wide format

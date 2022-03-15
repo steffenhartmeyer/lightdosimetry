@@ -35,7 +35,7 @@ fic <- function(lightVar,
   # Calculate FIC
   for (c in threshold) {
     fic <- sum(abs(diff(lightVar >= c)))
-    df <- df %>% tidyr::add_row(threshold = c, fic = fic)
+    df <- df %>% tibble::add_row(threshold = c, fic = fic)
   }
 
   # Reshape to wide format

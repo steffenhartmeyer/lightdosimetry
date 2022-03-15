@@ -83,7 +83,7 @@ max_min_period <- function(lightVar,
       center <- which(means == min(means, na.rm = TRUE))[1]
     }
 
-    df <- df %>% tidyr::add_row(
+    df <- df %>% tibble::add_row(
       timespan = as.numeric(parsed_ts$time),
       mean = means[center],
       midpoint = as.numeric(dtVar[center]),
