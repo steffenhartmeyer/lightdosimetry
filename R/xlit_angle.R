@@ -12,7 +12,6 @@
 #'    Possible values are ("seconds","minutes","hours","days"). Units can be
 #'    abbreviated. Is only used if `dtVar` is POSIXct, otherwise no conversion
 #'    will be performed. Defaults to "minutes".
-#' @param na.rm Logical. Should missing values be removed? Defaults to TRUE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #' @param wide Logical. Should the output be returned in wide format? Defaults to
@@ -40,7 +39,7 @@ NULL
 flit_angle <- function(lightVar,
                        dtVar,
                        threshold,
-                       unit_out = "minutes",
+                       unit_out = "mins",
                        as_df = TRUE,
                        wide = TRUE) {
   df <- tibble::tibble(threshold = numeric(), flit_angle = numeric())

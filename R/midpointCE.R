@@ -20,7 +20,7 @@
 midpointCE <- function(lightVar,
                        dtVar,
                        as_df = TRUE) {
-  # Replace NAs with 0
+  # Replace missing values with 0
   lightVar[is.na(lightVar)] <- 0
 
   # Find midpoint of CE

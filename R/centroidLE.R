@@ -38,7 +38,7 @@ centroidLE <- function(lightVar,
     # Check whether bin size specification is correct
     if ((is.character(bin_size) & !lubridate::is.POSIXct(dtVar)) |
       (!is.character(bin_size) & lubridate::is.POSIXct(dtVar))) {
-      stop("Bin size specification not compatible with type of datetime variable!")
+      stop("Bin size specification not compatible with type of time variable!")
     }
     # Average into bins
     df <- df %>%
@@ -47,8 +47,8 @@ centroidLE <- function(lightVar,
   }
 
   # Calculate weighted mean
-  weights <- (df$light / sum(df$light))
-  centroidLE <- sum(as.numeric(df$datetime) * weights)
+  weights <- (df$light / sum(df$light, na.rm = na.rm))
+  centroidLE <- sum(as.numeric(df$datetime) * weights, na.rm = na.rm)
 
   # Convert to POSIXct
   if (lubridate::is.POSIXct(dtVar)) {

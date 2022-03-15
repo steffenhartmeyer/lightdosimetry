@@ -7,7 +7,6 @@
 #' @param dtVar Vector containing the time data. Can be POSIXct or numeric.
 #' @param threshold Single numeric value or vector specifying threshold
 #'    intensities. The sign indicates above/below (see \code{\link{threshold}}).
-#' @param na.rm Logical. Should missing values be removed? Defaults to TRUE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #' @param wide Logical. Should the output be returned in wide format? Defaults to
@@ -59,7 +58,8 @@ mlit <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = mlit)
+    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = mlit,
+                                    names_sep = ".")
     if (ncol(df) == 1) names(df) <- paste0("mlit.", names(df))
   }
 
@@ -103,7 +103,8 @@ flit <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = flit)
+    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = flit,
+                                    names_sep = ".")
     if (ncol(df) == 1) names(df) <- paste0("flit.", names(df))
   }
 
@@ -147,7 +148,8 @@ llit <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = llit)
+    df <- df %>% tidyr::pivot_wider(names_from = threshold, values_from = llit,
+                                    names_sep = ".")
     if (ncol(df) == 1) names(df) <- paste0("llit.", names(df))
   }
 
