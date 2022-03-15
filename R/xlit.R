@@ -49,8 +49,8 @@ mlit <- function(lightVar,
   # Convert to POSIXct
   if (lubridate::is.POSIXct(dtVar)) {
     df <- df %>%
-      dplyr::mutate_at(dyplr::vars(mlit), round) %>%
-      dyplr::mutate_at(dyplr::vars(mlit), lubridate::as_datetime,
+      dplyr::mutate_at(dplyr::vars(mlit), round) %>%
+      dplyr::mutate_at(dplyr::vars(mlit), lubridate::as_datetime,
         tz = lubridate::tz(dtVar)
       )
   }
@@ -96,8 +96,8 @@ flit <- function(lightVar,
   # Convert to POSIXct
   if (lubridate::is.POSIXct(dtVar)) {
     df <- df %>%
-      dplyr::mutate_at(dyplr::vars(flit), round) %>%
-      dyplr::mutate_at(dyplr::vars(flit), lubridate::as_datetime,
+      dplyr::mutate_at(dplyr::vars(flit), round) %>%
+      dplyr::mutate_at(dplyr::vars(flit), lubridate::as_datetime,
         tz = lubridate::tz(dtVar)
       )
   }
@@ -143,8 +143,8 @@ llit <- function(lightVar,
   # Convert to POSIXct
   if (lubridate::is.POSIXct(dtVar)) {
     df <- df %>%
-      dplyr::mutate_at(dyplr::vars(llit), round) %>%
-      dyplr::mutate_at(dyplr::vars(llit), lubridate::as_datetime,
+      dplyr::mutate_at(dplyr::vars(llit), round) %>%
+      dplyr::mutate_at(dplyr::vars(llit), lubridate::as_datetime,
         tz = lubridate::tz(dtVar)
       )
   }
