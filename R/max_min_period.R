@@ -13,7 +13,7 @@
 #'    See \code{\link{parse_timeunit_tosecs}}.
 #' @param period_type String indicating the type of period. Must be "max" or "min".
 #' @param sampling_int Numeric. Sampling interval in seconds. Defaults to 60.
-#' @param loop Logical. Should the data be looped? Defaults to TRUE
+#' @param loop Logical. Should the data be looped? Defaults to FALSE.
 #' @param na.rm Logical. Should missing values be removed? Defaults to TRUE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
@@ -34,7 +34,7 @@ max_min_period <- function(lightVar,
                            timespan,
                            period_type,
                            sampling_int = 60,
-                           loop = TRUE,
+                           loop = FALSE,
                            na.rm = TRUE,
                            as_df = TRUE,
                            wide = TRUE) {
@@ -47,15 +47,11 @@ max_min_period <- function(lightVar,
   )
 
   # Loop data
-  if (loop) {
+  if(loop){
     lightVar <- c(lightVar, lightVar)
-    dtVar <- c(dtVar, dtVar)
-    # dt = as.numeric(dtVar)
-    # dt = c(dt[1:length(dt)-1], dt+(dt[length(dt)]-dt[1]))
-    # if(lubridate::is.POSIXct(dtVar))
-    #   dtVar = dt %>% lubridate::as_datetime(tz = lubridate::tz(dtVar))
-    # else
-    #   dtVar = dt
+    sampling_int <- (dtVar[2]-dtVar[1])
+    span <- (dtVar[length(dtVar)]-dtVar[1])
+    dtVar <- c(dtVar, dtVar + span + sampling_int)
   }
 
   df <- tibble::tibble(
