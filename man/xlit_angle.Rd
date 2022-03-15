@@ -45,7 +45,7 @@ TRUE.}
 }
 \value{
 Data frame or matrix with pairs of threshold and calculated values.
-   If wide is TRUE then variable names will be concatenated with the threshold.
+   If `wide` is TRUE then variable names will be concatenated with the threshold.
 }
 \description{
 These functions calculate the phase angle (i.e., timespan) between the first/last

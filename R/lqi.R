@@ -19,7 +19,7 @@
 #' @details Should be calculated for the period from waking up to going to bed.
 #'    Default threshold values are provided in photopic illuminance as per the
 #'    original paper. To calculate the original metric make sure that
-#'    \code{lightVar} is photopic illuminance.
+#'    `lightVar` is photopic illuminance.
 #'
 #' @references Martinez-Nicolas, A., Ortiz-Tudela, E., Madrid, J. A., & Rol, M.
 #'    A. (2011). Crosstalk Between Environmental Light and Internal Time in Humans.

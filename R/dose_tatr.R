@@ -19,7 +19,8 @@
 #'    TRUE.
 #'
 #' @return Data frame or matrix with pairs of threshold and calculated values.
-#'    If wide is TRUE then variable names will be concatenated with the threshold.
+#'    If `wide` is TRUE then variable names will be concatenated with the
+#'    threshold.
 #' @export
 #'
 #' @examples

@@ -35,10 +35,15 @@
 #'    TRUE.
 #'
 #' @return Data frame or matrix with pairs of threshold and calculated values.
-#'    If wide is TRUE then variable names will be concatenated with the threshold.
-#'    If return_indices is TRUE then a list with the data frame and a list of
-#'    cluster indices will be returned.
+#'    If `wide` is TRUE then variable names will be concatenated with the
+#'    threshold. If `return_indices` is TRUE then a list with the data frame
+#'    and a list of cluster indices will be returned.
 #' @export
+#'
+#' @references Wilson, J., Reid, K. J., Braun, R. I., Abbott, S. M., & Zee, P. C.
+#'    (2018). Habitual light exposure relative to circadian timing in delayed
+#'    sleep-wake phase disorder. \emph{Sleep}, 41(11).
+#'    \url{https://doi.org/10.1093/sleep/zsy166}
 #'
 #' @examples
 pulses_above_threshold = function(lightVar,

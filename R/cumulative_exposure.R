@@ -11,6 +11,10 @@
 #' @return Single column data frame or vector.
 #' @export
 #'
+#' @references Price, L. L. A. (2014). On the Role of Exponential Smoothing in
+#'    Circadian Dosimetry. \emph{Photochemistry and Photobiology}, 90(5),
+#'    \url{1184–1192. https://doi.org/10.1111/php.12282}
+#'
 #' @examples
 cumulative_exposure = function(lightVar,
                                na.rm = TRUE,

@@ -7,8 +7,8 @@
 #' @param decay Numeric value or character in the format "[numeric] [unit]", with
 #'    possible units ("seconds","minutes","hours","days"); units can be
 #'    abbreviated, see \code{\link{parse_timeunit_tosecs}}.
-#' @param beta Logical. Is the specified decay the half-life or beta value? If
-#'    TRUE, \code{decay} must be a numeric value.
+#' @param beta Logical. Is `decay` refering directly to beta value? If
+#'    TRUE, `decay` must be a numeric value.
 #' @param sampling_int Numeric. Sampling interval in seconds. Defaults to 60.
 #'
 #' @return Numeric vector of filtered light data

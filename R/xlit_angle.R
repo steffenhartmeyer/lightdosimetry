@@ -18,7 +18,7 @@
 #'    TRUE.
 #'
 #' @return Data frame or matrix with pairs of threshold and calculated values.
-#'    If wide is TRUE then variable names will be concatenated with the threshold.
+#'    If `wide` is TRUE then variable names will be concatenated with the threshold.
 #'
 #' @details The phase angle is relative to the start/end of the given time series.
 #'    Therefore, a time interval of interest should be provided (e.g.,

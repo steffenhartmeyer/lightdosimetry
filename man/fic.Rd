@@ -22,7 +22,7 @@ TRUE.}
 }
 \value{
 Data frame or matrix with pairs of threshold and calculated values.
-   If wide is TRUE then variable names will be concatenated with the threshold.
+   If `wide` is TRUE then variable names will be concatenated with the threshold.
 }
 \description{
 This functions calculates the times a given threshold
