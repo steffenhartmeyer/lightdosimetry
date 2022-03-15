@@ -15,7 +15,7 @@ regular_datetime <- function(dtVar,
                              sampling_int) {
   start <- as.numeric(dtVar)[1]
   end <- as.numeric(dtVar)[length(dtVar)]
-  datetime <- seq(start, end, epoch)
+  datetime <- seq(start, end, sampling_int)
   if (lubridate::is.POSIXct(dtVar)) {
     datetime <- lubridate::as_datetime(datetime, tz = lubridate::tz(dtVar))
   }
