@@ -21,27 +21,28 @@
 #'    16(4), 505–518. \url{https://doi.org/10.3109/07420529908998724}
 #'
 #' @examples
-intradaily_variability = function(lightVar,
-                                  dtVar,
-                                  na.rm = TRUE,
-                                  as_df = TRUE){
+intradaily_variability <- function(lightVar,
+                                   dtVar,
+                                   na.rm = TRUE,
+                                   as_df = TRUE) {
   # Hourly averages for each day
-  total_hourly = tibble::tibble(light = lightVar,
-                                datetime = dtVar) %>%
+  total_hourly <- tibble::tibble(
+    light = lightVar,
+    datetime = dtVar
+  ) %>%
     dplyr::group_by(cut(datetime, breaks = "1 hour", labels = FALSE)) %>%
     dplyr::summarise(light = mean(light, na.rm = na.rm))
 
   # Variance of consecutive hourly differences
-  var_hourly_diff = sum(diff(total$light, 1)^2) / (length(total$light) - 1)
+  var_hourly_diff <- sum(diff(total$light, 1)^2) / (length(total$light) - 1)
 
   # Variance of consecutive differences / variance across all days
-  iv = var_hourly_diff / var(total$light)
+  iv <- var_hourly_diff / var(total$light)
 
   # Return data frame or numeric vector
-  if(as_df){
+  if (as_df) {
     return(tibble::tibble(IV = iv))
-  }
-  else{
+  } else {
     return(iv)
   }
 }

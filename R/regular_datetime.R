@@ -11,13 +11,13 @@
 #' @export
 #'
 #' @examples
-regular_datetime = function(dtVar,
-                            sampling_int){
-  start = as.numeric(dtVar)[1]
-  end = as.numeric(dtVar)[length(dtVar)]
-  datetime = seq(start, end, epoch)
-  if(lubridate::is.POSIXct(dtVar)){
-    datetime = lubridate::as_datetime(datetime, tz = lubridate::tz(dtVar))
+regular_datetime <- function(dtVar,
+                             sampling_int) {
+  start <- as.numeric(dtVar)[1]
+  end <- as.numeric(dtVar)[length(dtVar)]
+  datetime <- seq(start, end, epoch)
+  if (lubridate::is.POSIXct(dtVar)) {
+    datetime <- lubridate::as_datetime(datetime, tz = lubridate::tz(dtVar))
   }
 
   return(datetime)

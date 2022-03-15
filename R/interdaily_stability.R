@@ -21,29 +21,30 @@
 #'    16(4), 505–518. \url{https://doi.org/10.3109/07420529908998724}
 #'
 #' @examples
-interdaily_stability = function(lightVar,
-                                dtVar,
-                                na.rm = TRUE,
-                                as_df = TRUE){
+interdaily_stability <- function(lightVar,
+                                 dtVar,
+                                 na.rm = TRUE,
+                                 as_df = TRUE) {
   # Hourly averages for each day
-  total_hourly = tibble::tibble(light = lightVar,
-                                datetime = dtVar) %>%
+  total_hourly <- tibble::tibble(
+    light = lightVar,
+    datetime = dtVar
+  ) %>%
     dplyr::group_by(cut(datetime, breaks = "1 hour", labels = FALSE)) %>%
     dplyr::summarise(light = mean(light, na.rm = na.rm))
 
   # Hourly average across all days
-  avg_hourly = total_hourly %>%
+  avg_hourly <- total_hourly %>%
     dplyr::group_by(hour = lubridate::hour(datetime)) %>%
     dplyr::summarise(light = mean(light, na.rm = na.rm))
 
   # Variance across average day / variance across all days
-  is = var(avg_hourly$light) / var(total_hourly$light)
+  is <- var(avg_hourly$light) / var(total_hourly$light)
 
   # Return data frame or numeric matrix
-  if(as_df){
+  if (as_df) {
     return(tibble::tibble(IS = is))
-  }
-  else{
+  } else {
     return(is)
   }
 }

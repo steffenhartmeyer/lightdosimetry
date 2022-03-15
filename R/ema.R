@@ -15,35 +15,33 @@
 #' @export
 #'
 #' @examples
-ema = function(lightVar,
-               decay,
-               beta = FALSE,
-               sampling_int = 60){
+ema <- function(lightVar,
+                decay,
+                beta = FALSE,
+                sampling_int = 60) {
 
   # Replace missing values with 0
-  lightVar[is.na(lightVar)] = 0
+  lightVar[is.na(lightVar)] <- 0
 
   # Parse decay half-life
-  if(!beta){
-    if(!is.numeric(decay)){
-      decay = parse_timeunit_tosecs(decay) / sampling_int
+  if (!beta) {
+    if (!is.numeric(decay)) {
+      decay <- parse_timeunit_tosecs(decay) / sampling_int
     }
-    beta = log(2) / decay
-  }
-  else{
-    if(!is.numeric(decay)){
+    beta <- log(2) / decay
+  } else {
+    if (!is.numeric(decay)) {
       stop("Beta must be a numeric value!")
     }
   }
 
   # EMA filter
-  D = replicate(length(lightVar),0)
-  for(idx in 1:length(lightVar)){
-    if(idx == 1){
-      D[idx] = beta * (lightVar[idx])
-    }
-    else{
-      D[idx] = D[idx-1] + beta * (lightVar[idx] - D[idx-1])
+  D <- replicate(length(lightVar), 0)
+  for (idx in 1:length(lightVar)) {
+    if (idx == 1) {
+      D[idx] <- beta * (lightVar[idx])
+    } else {
+      D[idx] <- D[idx - 1] + beta * (lightVar[idx] - D[idx - 1])
     }
   }
 

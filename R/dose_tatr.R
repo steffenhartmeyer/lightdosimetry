@@ -24,13 +24,13 @@
 #' @export
 #'
 #' @examples
-dose_tatr = function(lightVar,
-                    lower,
-                    upper,
-                    sampling_int = 60,
-                    unit_out = "mins",
-                    as_df=TRUE,
-                    wide=TRUE){
+dose_tatr <- function(lightVar,
+                      lower,
+                      upper,
+                      sampling_int = 60,
+                      unit_out = "mins",
+                      as_df = TRUE,
+                      wide = TRUE) {
 
   # Check that lower and upper bounds are same length
   if (length(lower) != length(upper)) {
@@ -46,20 +46,23 @@ dose_tatr = function(lightVar,
     cmin <- lower[i]
     cmax <- upper[i]
     val <- (sum(between(lightVar, cmin, cmax), na.rm = na.rm) * sampling_int) %>%
-      from.secs(unit_out) * (cmax - cmin)/2
+      from.secs(unit_out) * (cmax - cmin) / 2
     df <- df %>%
       tibble::add_row(
         threshold_min = cmin,
         threshold_max = cmax,
-        dose_tat = val)
+        dose_tat = val
+      )
   }
 
   # Reshape to wide format
   if (wide) {
     df <- df %>%
       tidyr::unite(threshold, threshold_min, threshold_max) %>%
-      tidyr::pivot_wider(names_from = threshold, values_from = dose_tat,
-                         names_sep = ".")
+      tidyr::pivot_wider(
+        names_from = threshold, values_from = dose_tat,
+        names_sep = "."
+      )
     if (ncol(df) == 1) names(df) <- paste0("dose_tat.", names(df))
   }
 

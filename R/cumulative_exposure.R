@@ -16,14 +16,13 @@
 #'    \url{1184–1192. https://doi.org/10.1111/php.12282}
 #'
 #' @examples
-cumulative_exposure = function(lightVar,
-                               na.rm = TRUE,
-                               as_df=TRUE){
-  ce = sum(lightVar, na.rm = na.rm)
-  if(as_df){
+cumulative_exposure <- function(lightVar,
+                                na.rm = TRUE,
+                                as_df = TRUE) {
+  ce <- sum(lightVar, na.rm = na.rm)
+  if (as_df) {
     return(tibble::tibble(CE = ce))
-  }
-  else{
+  } else {
     return(ce)
   }
 }
