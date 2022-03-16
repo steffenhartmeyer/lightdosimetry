@@ -5,7 +5,7 @@
 #' Fernández-Martínez et al. (2018).
 #'
 #' @param lightVar Numeric vector containing the light data.
-#' @param na.rm Logical. Should missing values be removed? Defaults to TRUE.
+#' @param na_rm Logical. Should missing values be removed? Defaults to TRUE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #'
@@ -20,14 +20,17 @@
 #'
 #' @examples
 disparity_index <- function(lightVar,
-                            na.rm = TRUE,
+                            na_rm = TRUE,
                             as_df = TRUE) {
 
   # Remove NAs
-  if (na.rm) lightVar <- na.omit(lightVar)
+  if (na_rm){
+    lightVar <- na.omit(lightVar)
+  }
 
   # Calculate disparity index
-  fractions <- (lightVar[2:length(lightVar)] + 1) / (lightVar[1:length(lightVar) - 1] + 1)
+  fractions <- (lightVar[2:length(lightVar)] + 1) /
+               (lightVar[1:length(lightVar)-1] + 1)
   di <- 1 / (length(lightVar) - 1) * sum(abs(log(fractions)))
 
   # Return as data frame or numeric vector

@@ -3,7 +3,8 @@
 #' This function smoothes the data using an exponential moving average filter
 #' with a specified decay.
 #'
-#' @param lightVar Numeric vector containing the light data.
+#' @param lightVar Numeric vector containing the light data. Missing values are
+#'    replaced by 0.
 #' @param decay Numeric value or character in the format "[numeric] [unit]", with
 #'    possible units ("seconds","minutes","hours","days"); units can be
 #'    abbreviated, see \code{\link{parse_timeunit_tosecs}}.

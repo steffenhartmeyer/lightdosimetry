@@ -6,7 +6,7 @@
 #' @param lightVar Numeric vector containing the light data.
 #' @param threshold Single numeric value or vector specifying threshold
 #'    intensities. The sign indicates above/below (see \code{\link{threshold}}).
-#' @param na.rm Logical. Should missing values be removed? Defaults to TRUE.
+#' @param na_rm Logical. Should missing light values be removed? Defaults to FALSE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #' @param wide Logical. Should the output be returned in wide format? Defaults to
@@ -23,18 +23,20 @@
 #' @examples
 fic <- function(lightVar,
                 threshold,
-                na.rm = TRUE,
+                na_rm = FALSE,
                 as_df = TRUE,
                 wide = TRUE) {
 
-  # Remove NAs
-  if (na.rm) lightVar <- na.omit(lightVar)
+  # Remove missing values
+  if(na_rm){
+    lightVar <- na.omit(lightVar)
+  }
 
   df <- tibble::tibble(threshold = numeric(), fic = numeric())
 
   # Calculate FIC
   for (c in threshold) {
-    fic <- sum(abs(diff(lightVar >= c)))
+    fic <- sum(abs(diff(threshold(lightVar, c))))
     df <- df %>% tibble::add_row(threshold = c, fic = fic)
   }
 

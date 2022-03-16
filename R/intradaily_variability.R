@@ -6,8 +6,7 @@
 #' mean hourly light levels. Higher values indicate more fragmentation.
 #'
 #' @param lightVar Numeric vector containing the light data.
-#' @param dtVar Vector containing the time data. Can be POSIXct or numeric.
-#' @param na.rm Logical. Should missing values be removed? Defaults to TRUE.
+#' @param datetimeVar Vector containing the time data. Must be POSIXct.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #'
@@ -22,22 +21,24 @@
 #'
 #' @examples
 intradaily_variability <- function(lightVar,
-                                   dtVar,
-                                   na.rm = TRUE,
+                                   datetimeVar,
                                    as_df = TRUE) {
+
+  if(!lubridate::is.POSIXct(datetimeVar)){
+    stop("Datetime variable must be POSIXct!")
+  }
+
   # Hourly averages for each day
-  total_hourly <- tibble::tibble(
-    light = lightVar,
-    datetime = dtVar
-  ) %>%
-    dplyr::group_by(cut(datetime, breaks = "1 hour", labels = FALSE)) %>%
-    dplyr::summarise(light = mean(light, na.rm = na.rm))
+  total_hourly <-
+    tibble::tibble(light = lightVar, datetime = datetimeVar) %>%
+    dplyr::group_by(floor_date(datetime, unit = "1 hour")) %>%
+    dplyr::summarise(light = mean(light, na.rm = TRUE))
 
   # Variance of consecutive hourly differences
-  var_hourly_diff <- sum(diff(total$light, 1)^2) / (length(total$light) - 1)
+  var_hourly_diff <- sum(diff(total_hourly$light, 1)^2) / (length(total_hourly$light) - 1)
 
   # Variance of consecutive differences / variance across all days
-  iv <- var_hourly_diff / var(total$light)
+  iv <- var_hourly_diff / var(total_hourly$light)
 
   # Return data frame or numeric vector
   if (as_df) {

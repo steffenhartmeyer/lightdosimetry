@@ -7,8 +7,11 @@
 #' episodes and proportion of total amount of interruptions to light above
 #' threshold.
 #'
-#' @param lightVar Numeric vector containing the light data.
-#' @param dtVar Vector containing the time data. Can be POSIXct or numeric.
+#' @param lightVar Numeric vector containing the light data. Missing values are
+#'    replaced by 0.
+#' @param timeVar Vector containing the time data. Can be POSIXct or numeric.
+#'    Should be a vector of regularly spaced timestamps, otherwise the calculations
+#'    may be misleading.
 #' @param threshold Single numeric value or vector specifying threshold
 #'    intensities. The sign indicates above/below (see \code{\link{threshold}}).
 #' @param min_length Minimum length of each cluster. Can be numeric or string
@@ -47,7 +50,7 @@
 #'
 #' @examples
 pulses_above_threshold <- function(lightVar,
-                                   dtVar,
+                                   timeVar,
                                    threshold,
                                    min_length = 0,
                                    max_interrupt = 0,
@@ -59,11 +62,17 @@ pulses_above_threshold <- function(lightVar,
                                    as_df = TRUE,
                                    wide = TRUE) {
 
+  # Check whether time series is regularly spaced
+  if (length(unique(diff(timeVar))) > 1){
+    warning("Time variable is not regularly spaced. Calculated results may be
+            incorrect!")
+  }
+
   # Loop data
   if (loop) {
     lightVar <- c(lightVar, lightVar)
-    span <- dtVar[length(dtVar)] - dtVar[1]
-    dtVar <- c(dtVar, dtVar + span + sampling_int)
+    span <- timeVar[length(timeVar)] - timeVar[1]
+    timeVar <- c(timeVar, timeVar + span + sampling_int)
   }
 
   # Parse minimum cluster length
@@ -102,7 +111,7 @@ pulses_above_threshold <- function(lightVar,
     temp.int <- c(NULL) # Temporary list of interruptions
     clusters.index <- list() # Cluster list with indices
     clusters.light <- list() # Cluster list with light values
-    clusters.dt <- list() # Cluster list with datetime values
+    clusters.time <- list() # Cluster list with datetime values
 
     for (idx in c(1:length(lightVar))) {
       if (threshold(lightVar[idx], c)) {
@@ -137,22 +146,22 @@ pulses_above_threshold <- function(lightVar,
               # --> Merge interruptions and temp clusters into one cluster
               cluster <- c(unlist(temp.clusters), temp.int) %>% sort()
               temp.light <- list(lightVar[cluster])
-              temp.dt <- list(as.numeric(dtVar[cluster]))
+              temp.time <- list(as.numeric(timeVar[cluster]))
               temp.clusters <- list(cluster)
             } else {
               # Proportion of interruptions higher than maximum proportion
               # --> Extract clusters that satisfy minimum length argument
               temp.clusters <- temp.clusters[lengths(temp.clusters) >= minlen]
               temp.light <- list()
-              temp.dt <- list()
+              temp.time <- list()
               for (cluster in temp.clusters) {
                 temp.light <- append(temp.light, list(lightVar[cluster]))
-                temp.dt <- append(temp.dt, list(as.numeric(dtVar[cluster])))
+                temp.time <- append(temp.time, list(as.numeric(timeVar[cluster])))
               }
             }
             # Add clusters to final cluster lists
             clusters.light <- append(clusters.light, temp.light)
-            clusters.dt <- append(clusters.dt, temp.dt)
+            clusters.time <- append(clusters.time, temp.time)
             if (indices) clusters.index <- append(index, temp.clusters)
 
             # Reset everything
@@ -174,9 +183,9 @@ pulses_above_threshold <- function(lightVar,
       from.secs(unit_pulse_length) %>%
       mean()
     p_time <- p_n * p_len
-    p_on <- unlist(lapply(clusters.dt, first)) %>% mean(na.rm = TRUE)
-    p_off <- unlist(lapply(clusters.dt, last)) %>% mean(na.rm = TRUE)
-    p_mid <- unlist(lapply(clusters.dt, mean)) %>% mean(na.rm = TRUE)
+    p_on <- unlist(lapply(clusters.time, first)) %>% mean(na.rm = TRUE)
+    p_off <- unlist(lapply(clusters.time, last)) %>% mean(na.rm = TRUE)
+    p_mid <- unlist(lapply(clusters.time, mean)) %>% mean(na.rm = TRUE)
     df <- df %>%
       tibble::add_row(
         threshold = c,
@@ -193,7 +202,7 @@ pulses_above_threshold <- function(lightVar,
     if (return_indices) index_list <- append(index_list, list(index))
   }
   # Convert to POSIXct
-  if (lubridate::is.POSIXct(dtVar)) {
+  if (lubridate::is.POSIXct(timeVar)) {
     df <- df %>%
       dplyr::mutate_at(
         dplyr::vars(mean_pulse_midpoint:mean_pulse_offset), round
@@ -201,7 +210,7 @@ pulses_above_threshold <- function(lightVar,
       dplyr::mutate_at(
         dplyr::vars(mean_pulse_midpoint:mean_pulse_offset),
         lubridate::as_datetime,
-        tz = lubridate::tz(dtVar)
+        tz = lubridate::tz(timeVar)
       )
   }
   # Reshape to wide format

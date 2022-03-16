@@ -12,7 +12,6 @@
 #' @param sampling_int Numeric. Sampling interval in seconds. Defaults to 60.
 #' @param unit_out Character. Time unit of output. Possible values are
 #'    ("secs", "mins", "hours", "days"). Can be abbreviated. Defaults to "mins".
-#' @param na.rm Logical. Should missing values be removed? Defaults to TRUE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #' @param wide Logical. Should the output be returned in wide format? Defaults to
@@ -45,25 +44,20 @@ dose_tatr <- function(lightVar,
   for (i in 1:length(lower)) {
     cmin <- lower[i]
     cmax <- upper[i]
-    val <- (sum(between(lightVar, cmin, cmax), na.rm = na.rm) * sampling_int) %>%
+    dose_tat <- (sum(between(lightVar, cmin, cmax)) * sampling_int) %>%
       from.secs(unit_out) * (cmax - cmin) / 2
-    df <- df %>%
-      tibble::add_row(
-        threshold_min = cmin,
-        threshold_max = cmax,
-        dose_tat = val
-      )
+    df <- df %>% tibble::add_row(threshold_min = cmin,
+                                 threshold_max = cmax,
+                                 dose_tat = dose_tat)
+
   }
 
   # Reshape to wide format
   if (wide) {
     df <- df %>%
       tidyr::unite(threshold, threshold_min, threshold_max) %>%
-      tidyr::pivot_wider(
-        names_from = threshold,
-        values_from = dose_tat,
-        names_prefix = "dose_tat."
-      )
+      tidyr::pivot_wider(names_from = threshold, values_from = dose_tat,
+                         names_prefix = "dose_tat.")
   }
 
   # Return as data frame or matrix

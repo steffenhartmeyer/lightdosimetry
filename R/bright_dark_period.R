@@ -1,4 +1,4 @@
-#' Maximum or minimum continuous period
+#' Brightest or darkest continuous period
 #'
 #' This function finds the brightest or darkest continuous period of a given
 #' timespan and calculates its \code{mean} light level, \code{onset},
@@ -6,15 +6,15 @@
 #' or minimum mean light level.
 #'
 #' @param lightVar Numeric vector containing the light data.
-#' @param dtVar Vector containing the time data. Can be POSIXct or numeric.
+#' @param timeVar Vector containing the time data. Can be POSIXct or numeric.
 #' @param timespan Single string or vector of strings with the timespan(s).
 #'    Timespans must be in the format "[numeric] [unit]", with possible units
 #'    ("seconds","minutes","hours","days"). Units can be abbreviated.
 #'    See \code{\link{parse_timeunit_tosecs}}.
-#' @param period_type String indicating the type of period. Must be "max" or "min".
+#' @param period_type String indicating the type of period. Must be "bright" or
+#'    "dark".
 #' @param sampling_int Numeric. Sampling interval in seconds. Defaults to 60.
 #' @param loop Logical. Should the data be looped? Defaults to FALSE.
-#' @param na.rm Logical. Should missing values be removed? Defaults to TRUE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #' @param wide Logical. Should the output be returned in wide format? Defaults to
@@ -23,35 +23,42 @@
 #' @return Data frame or matrix with pairs of timespan and calculated values.
 #'    If wide is TRUE then variable names will be concatenated with the timespan.
 #'
-#' @details Assumes 24h light data. Otherwise, results may not be meaningful.
-#'    Looping the data is recommended for finding the minimum (darkest) period.
+#' @details Assumes regular 24h light data. Otherwise, results may not be
+#'    meaningful. Looping the data is recommended for finding the darkest period.
+#'    Missing light values will be removed by default.
 #'
 #' @export
 #'
 #' @examples
-max_min_period <- function(lightVar,
-                           dtVar,
-                           timespan,
-                           period_type,
-                           sampling_int = 60,
-                           loop = FALSE,
-                           na.rm = TRUE,
-                           as_df = TRUE,
-                           wide = TRUE) {
+bright_dark_period <- function(lightVar,
+                               timeVar,
+                               timespan,
+                               period_type,
+                               sampling_int = 60,
+                               loop = FALSE,
+                               na_rm = TRUE,
+                               as_df = TRUE,
+                               wide = TRUE) {
+
+  # Check whether time series is regularly spaced
+  if (length(unique(diff(timeVar))) > 1){
+    warning("Time variable is not regularly spaced. Calculated results may be
+            incorrect!")
+  }
 
   # Parse period
-  max <- switch(period_type,
-    "max" = TRUE,
-    "min" = FALSE,
-    stop("Wrong period specification! Must be 'max' or 'min'.")
+  max <- switch(
+    period_type,
+    "bright" = TRUE,
+    "dark" = FALSE,
+    stop("Wrong period type specification! Must be 'bright' or 'dark'.")
   )
 
   # Loop data
   if (loop) {
     lightVar <- c(lightVar, lightVar)
-    sampling_int <- (dtVar[2] - dtVar[1])
-    span <- (dtVar[length(dtVar)] - dtVar[1])
-    dtVar <- c(dtVar, dtVar + span + sampling_int)
+    span <- timeVar[length(timeVar)] - timeVar[1]
+    timeVar <- c(timeVar, timeVar + span + sampling_int)
   }
 
   df <- tibble::tibble(
@@ -71,10 +78,8 @@ max_min_period <- function(lightVar,
     if (window %% 2 != 0) window <- window + 1
 
     # Calculate rolling means
-    means <- zoo::rollapply(lightVar, window, mean,
-      na.rm = na.rm,
-      partial = FALSE, fill = NA
-    )
+    means <- zoo::rollapply(lightVar, window, mean, na.rm = TRUE,
+                            partial = FALSE, fill = NA)
 
     # Find maximum/minimum mean value
     if (max) {
@@ -86,17 +91,17 @@ max_min_period <- function(lightVar,
     df <- df %>% tibble::add_row(
       timespan = as.numeric(parsed_ts$time),
       mean = means[center],
-      midpoint = as.numeric(dtVar[center]),
-      onset = as.numeric(dtVar[center - (window / 2) + 1]),
-      offset = as.numeric(dtVar[center + (window / 2)])
+      midpoint = as.numeric(timeVar[center]),
+      onset = as.numeric(timeVar[center - (window / 2) + 1]),
+      offset = as.numeric(timeVar[center + (window / 2)])
     )
   }
 
   # Convert to POSIXct
-  if (lubridate::is.POSIXct(dtVar)) {
+  if (lubridate::is.POSIXct(timeVar)) {
     df <- df %>% mutate_at(vars(midpoint:offset),
       lubridate::as_datetime,
-      tz = lubridate::tz(dtVar)
+      tz = lubridate::tz(timeVar)
     )
   }
 

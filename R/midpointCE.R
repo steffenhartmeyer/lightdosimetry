@@ -3,8 +3,9 @@
 #' This function calculates the timing corresponding to half of the cumulative
 #' light exposure within the given time series.
 #'
-#' @param lightVar Numeric vector containing the light data.
-#' @param dtVar Vector containing the time data. Can be POSIXct or numeric.
+#' @param lightVar Numeric vector containing the light data. Missing values are
+#'    replaced with 0.
+#' @param timeVar Vector containing the time data. Can be POSIXct or numeric.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #'
@@ -18,8 +19,9 @@
 #'
 #' @examples
 midpointCE <- function(lightVar,
-                       dtVar,
+                       timeVar,
                        as_df = TRUE) {
+
   # Replace missing values with 0
   lightVar[is.na(lightVar)] <- 0
 
@@ -30,8 +32,8 @@ midpointCE <- function(lightVar,
 
   # Return as data frame or numeric vector
   if (as_df) {
-    return(tibble::tibble(midpointCE = dtVar[midpoint]))
+    return(tibble::tibble(midpointCE = timeVar[midpoint]))
   } else {
-    return(dtVar[midpoint])
+    return(timeVar[midpoint])
   }
 }

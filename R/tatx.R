@@ -15,7 +15,6 @@
 #' @param sampling_int Numeric. Sampling interval in seconds. Defaults to 60.
 #' @param unit_out Character. Time unit of output. Possible values are
 #'    ("secs", "mins", "hours", "days"). Can be abbreviated. Defaults to "mins".
-#' @param na.rm Logical. Should missing values be removed? Defaults to TRUE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #' @param wide Logical. Should the output be returned in wide format? Defaults to
@@ -37,7 +36,6 @@ tat <- function(lightVar,
                 threshold,
                 sampling_int = 60,
                 unit_out = "mins",
-                na.rm = TRUE,
                 as_df = TRUE,
                 wide = TRUE) {
   df <- tibble::tibble(
@@ -45,7 +43,7 @@ tat <- function(lightVar,
     tat = numeric()
   )
   for (c in threshold) {
-    val <- (sum(threshold(lightVar, c), na.rm = na.rm) * sampling_int) %>%
+    val <- (sum(threshold(lightVar, c)) * sampling_int) %>%
       from.secs(unit_out)
     df <- df %>% tibble::add_row(threshold = c, tat = val)
   }
@@ -78,7 +76,6 @@ tatr <- function(lightVar,
                  upper,
                  sampling_int = 60,
                  unit_out = "mins",
-                 na.rm = TRUE,
                  as_df = TRUE,
                  wide = TRUE) {
 
@@ -95,9 +92,12 @@ tatr <- function(lightVar,
   for (i in 1:length(lower)) {
     cmin <- lower[i]
     cmax <- upper[i]
-    val <- (sum(between(lightVar, cmin, cmax), na.rm = na.rm) * sampling_int) %>%
+    val <- (sum(between(lightVar, cmin, cmax)) * sampling_int) %>%
       from.secs(unit_out)
-    df <- df %>% tibble::add_row(threshold_min = cmin, threshold_max = cmax, tat = val)
+    df <- df %>%
+      tibble::add_row(threshold_min = cmin,
+                      threshold_max = cmax,
+                      tat = val)
   }
 
   # Reshape to wide format

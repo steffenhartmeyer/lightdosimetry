@@ -4,7 +4,7 @@
 #' above or below a given threshold intensity within the given interval.
 #'
 #' @param lightVar Numeric vector containing the light data.
-#' @param dtVar Vector containing the time data. Can be POSIXct or numeric.
+#' @param timeVar Vector containing the time data. Can be POSIXct or numeric.
 #' @param threshold Single numeric value or vector specifying threshold
 #'    intensities. The sign indicates above/below (see \code{\link{threshold}}).
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
@@ -32,7 +32,7 @@ NULL
 #' @export
 #'
 mlit <- function(lightVar,
-                 dtVar,
+                 timeVar,
                  threshold,
                  as_df = TRUE,
                  wide = TRUE) {
@@ -40,18 +40,18 @@ mlit <- function(lightVar,
 
   # Calculate MLiT
   for (c in threshold) {
-    mlit <- dtVar[threshold(lightVar, c)] %>%
+    mlit <- timeVar[threshold(lightVar, c)] %>%
       as.numeric() %>%
       mean()
     df <- df %>% tibble::add_row(threshold = c, mlit = mlit)
   }
 
   # Convert to POSIXct
-  if (lubridate::is.POSIXct(dtVar)) {
+  if (lubridate::is.POSIXct(timeVar)) {
     df <- df %>%
       dplyr::mutate_at(dplyr::vars(mlit), round) %>%
       dplyr::mutate_at(dplyr::vars(mlit), lubridate::as_datetime,
-        tz = lubridate::tz(dtVar)
+        tz = lubridate::tz(timeVar)
       )
   }
 
@@ -81,7 +81,7 @@ mlit <- function(lightVar,
 #' @export
 #'
 flit <- function(lightVar,
-                 dtVar,
+                 timeVar,
                  threshold,
                  as_df = TRUE,
                  wide = TRUE) {
@@ -89,16 +89,16 @@ flit <- function(lightVar,
 
   # Calculate FLiT
   for (c in threshold) {
-    flit <- dtVar[threshold(lightVar, c)][1] %>% as.numeric()
+    flit <- timeVar[threshold(lightVar, c)][1] %>% as.numeric()
     df <- df %>% tibble::add_row(threshold = c, flit = flit)
   }
 
   # Convert to POSIXct
-  if (lubridate::is.POSIXct(dtVar)) {
+  if (lubridate::is.POSIXct(timeVar)) {
     df <- df %>%
       dplyr::mutate_at(dplyr::vars(flit), round) %>%
       dplyr::mutate_at(dplyr::vars(flit), lubridate::as_datetime,
-        tz = lubridate::tz(dtVar)
+        tz = lubridate::tz(timeVar)
       )
   }
 
@@ -126,7 +126,7 @@ flit <- function(lightVar,
 #' @export
 #'
 llit <- function(lightVar,
-                 dtVar,
+                 timeVar,
                  threshold,
                  as_df = TRUE,
                  wide = TRUE) {
@@ -134,18 +134,18 @@ llit <- function(lightVar,
 
   # Calculate LLiT
   for (c in threshold) {
-    llit <- dtVar[threshold(lightVar, c)] %>%
+    llit <- timeVar[threshold(lightVar, c)] %>%
       dplyr::last() %>%
       as.numeric()
     df <- df %>% tibble::add_row(threshold = c, llit = llit)
   }
 
   # Convert to POSIXct
-  if (lubridate::is.POSIXct(dtVar)) {
+  if (lubridate::is.POSIXct(timeVar)) {
     df <- df %>%
       dplyr::mutate_at(dplyr::vars(llit), round) %>%
       dplyr::mutate_at(dplyr::vars(llit), lubridate::as_datetime,
-        tz = lubridate::tz(dtVar)
+        tz = lubridate::tz(timeVar)
       )
   }
 

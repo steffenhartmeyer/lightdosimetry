@@ -5,12 +5,12 @@
 #' and the start/end of the given interval.
 #'
 #' @param lightVar Numeric vector containing the light data.
-#' @param dtVar Vector containing the time data. Can be POSIXct or numeric.
+#' @param timeVar Vector containing the time data. Can be POSIXct or numeric.
 #' @param threshold Single numeric value or vector specifying threshold
 #'    intensities. The sign indicates above/below (see \code{\link{threshold}}).
 #' @param unit_out String indicating the time unit of the output value.
 #'    Possible values are ("seconds","minutes","hours","days"). Units can be
-#'    abbreviated. Is only used if `dtVar` is POSIXct, otherwise no conversion
+#'    abbreviated. Is only used if `timeVar` is POSIXct, otherwise no conversion
 #'    will be performed. Defaults to "minutes".
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
@@ -37,18 +37,19 @@ NULL
 #' @export
 #'
 flit_angle <- function(lightVar,
-                       dtVar,
+                       timeVar,
                        threshold,
                        unit_out = "mins",
                        as_df = TRUE,
                        wide = TRUE) {
+
   df <- tibble::tibble(threshold = numeric(), flit_angle = numeric())
 
   # Calculate FLiT Angle
   for (c in threshold) {
-    flit <- dtVar[threshold(lightVar, c)][1]
-    flit_angle <- (flit - dtVar[1])
-    if (lubridate::is.POSIXct(dtVar)) {
+    flit <- timeVar[threshold(lightVar, c)][1]
+    flit_angle <- (flit - timeVar[1])
+    if (lubridate::is.POSIXct(timeVar)) {
       flit_angle <- flit_angle %>% as.numeric(units = unit_out)
     }
     df <- df %>% tibble::add_row(threshold = c, flit_angle = flit_angle)
@@ -56,11 +57,9 @@ flit_angle <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>%
-      tidyr::pivot_wider(
-        names_from = threshold,
-        values_from = flit_angle,
-        names_prefix = "flit_angle.")
+    df <- df %>% tidyr::pivot_wider(names_from = threshold,
+                                    values_from = flit_angle,
+                                    names_prefix = "flit_angle.")
   }
 
   # Return data frame or numeric matrix
@@ -82,18 +81,19 @@ flit_angle <- function(lightVar,
 #' @export
 #'
 llit_angle <- function(lightVar,
-                       dtVar,
+                       timeVar,
                        threshold,
                        unit_out = "mins",
                        as_df = TRUE,
                        wide = TRUE) {
+
   df <- tibble::tibble(threshold = numeric(), llit_angle = numeric())
 
   # Calculate LLiT Angle
   for (c in threshold) {
-    llit <- dtVar[threshold(lightVar, c)] %>% dplyr::last()
-    llit_angle <- (dtVar[length(dtVar)] - llit)
-    if (lubridate::is.POSIXct(dtVar)) {
+    llit <- timeVar[threshold(lightVar, c)] %>% dplyr::last()
+    llit_angle <- (timeVar[length(timeVar)] - llit)
+    if (lubridate::is.POSIXct(timeVar)) {
       llit_angle <- llit_angle %>% as.numeric(units = unit_out)
     }
     df <- df %>% tibble::add_row(threshold = c, llit_angle = llit_angle)
@@ -101,11 +101,9 @@ llit_angle <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>%
-      tidyr::pivot_wider(
-        names_from = threshold,
-        values_from = llit_angle,
-        names_prefix = "llit_angle.")
+    df <- df %>% tidyr::pivot_wider(names_from = threshold,
+                                    values_from = llit_angle,
+                                    names_prefix = "llit_angle.")
   }
 
   # Return data frame or numeric matrix

@@ -4,7 +4,7 @@
 #' deviation divided by the mean.
 #'
 #' @param lightVar Numeric vector containing the light data.
-#' @param na.rm Logical. Should missing values be removed? Defaults to TRUE.
+#' @param na_rm Logical. Should missing light values be removed? Defaults to TRUE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #'
@@ -13,9 +13,16 @@
 #'
 #' @examples
 coeff_var <- function(lightVar,
-                      na.rm = TRUE,
+                      na_rm = TRUE,
                       as_df = TRUE) {
-  cv <- sd(lightVar, na.rm = na.rm) / mean(lightVar, na.rm = na.rm)
+
+  # Remove NAs
+  if (na_rm){
+    lightVar <- na.omit(lightVar)
+  }
+
+  cv <- sd(lightVar) / mean(lightVar)
+
   if (as_df) {
     return(tibble::tibble(coeff_var = cv))
   } else {

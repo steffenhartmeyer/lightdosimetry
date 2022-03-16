@@ -3,7 +3,7 @@
 #' This function reshapes a data frame from a given interval to continuously
 #' spaced rows.
 #' @param df The data frame to be reshaped.
-#' @param rowvar Name of the new variable holding the row indices.
+#' @param newVar Name of the new variable holding the row indices.
 #' @param from Start of interval. Numeric or POSIXct.
 #' @param to End of interval. Numeric or POSIXct.
 #' @param by Numeric. Spacing between individual rows. Needs to be in same unit
@@ -15,14 +15,14 @@
 #' @export
 #'
 #' @examples
-interval_to_rows <- function(df, rowvar, from, to, by, removeBounds = TRUE) {
+interval_to_rows <- function(df, newVar, from, to, by, removeBounds = TRUE) {
   df <- df %>%
     dplyr::rowwise() %>%
-    dplyr::mutate({{ rowvar }} := ifelse(is.na({{ from }}) | is.na({{ to }}),
+    dplyr::mutate({{ newVar }} := ifelse(is.na({{ from }}) | is.na({{ to }}),
       list(NA),
       list(seq({{ from }}, {{ to }}, by))
     )) %>%
-    tidyr::unnest(cols = c({{ rowvar }})) %>%
+    tidyr::unnest(cols = c({{ newVar }})) %>%
     dplyr::ungroup()
   if (removeBounds) df <- df %>% dplyr::select(!c({{ from }}, {{ to }}))
   return(df)

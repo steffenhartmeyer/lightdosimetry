@@ -2,7 +2,7 @@
 #'
 #' Convenience function to determine whether light is above or below threshold.
 #'
-#' @param light Numeric value or vector of light data.
+#' @param lightVar Numeric value or vector of light data.
 #' @param threshold Single numeric value specifying threshold
 #'    intensity. The sign indicates above/below (negative values = below,
 #'    positive value = above). This operation is always including the threshold
@@ -12,11 +12,11 @@
 #' @export
 #'
 #' @examples
-threshold <- function(light, threshold) {
+threshold <- function(lightVar, threshold) {
   if (threshold < 0) {
-    out <- light <= abs(threshold)
+    out <- lightVar <= abs(threshold)
   } else {
-    out <- light >= threshold
+    out <- lightVar >= threshold
   }
   replace_na(out, FALSE)
 }

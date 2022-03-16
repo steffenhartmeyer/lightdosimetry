@@ -4,12 +4,11 @@
 #' time vector weighted in proportion to the corresponding light intensity.
 #'
 #' @param lightVar Numeric vector containing the light data.
-#' @param dtVar Vector containing the time data. Can be POSIXct or numeric.
+#' @param timeVar Vector containing the time data. Can be POSIXct or numeric.
 #' @param bin_size Numeric value or character specifying size of bins to average
-#'    light data. If dtVar is POSIXct it must be a string with the time followed
+#'    light data. If timeVar is POSIXct it must be a string with the time followed
 #'    by its unit (e.g., "1 hour", "30 mins"). If NULL then no binning will be
 #'    performed. Defaults to NULL.
-#' @param na.rm Logical. Should missing values be removed? Defaults to TRUE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #'
@@ -25,42 +24,48 @@
 #'
 #' @examples
 centroidLE <- function(lightVar,
-                       dtVar,
+                       timeVar,
                        bin_size = NULL,
-                       na.rm = TRUE,
                        as_df = TRUE) {
   df <- tibble::tibble(
     light = lightVar,
-    datetime = dtVar
+    time = timeVar
   )
 
   if (!is.null(bin_size)) {
     # Check whether bin size specification is correct
-    if ((is.character(bin_size) & !lubridate::is.POSIXct(dtVar)) |
-      (!is.character(bin_size) & lubridate::is.POSIXct(dtVar))) {
+    if ((is.character(bin_size) & !lubridate::is.POSIXct(timeVar)) |
+        (!is.character(bin_size) & lubridate::is.POSIXct(timeVar))) {
       stop("Bin size specification not compatible with type of time variable!")
     }
     # Average into bins
-    df <- df %>%
-      dplyr::group_by(datetime = cut(datetime, breaks = bin_size, labels = FALSE)) %>%
-      dplyr::summarise(light = mean(light, na.rm = na.rm))
+    if(lubridate::is.POSIXct(timeVar)){
+      df <- df %>%
+        dplyr::group_by(time = lubridate::floor_date(time, unit = bin_size)) %>%
+        dplyr::summarise(light = mean(light, na.rm = TRUE))
+    }
+    else{
+      df <- df %>%
+        dplyr::group_by(time = cut(time, breaks = bin_size)) %>%
+        dplyr::summarise(light = mean(light, na.rm = TRUE))
+    }
   }
 
   # Calculate weighted mean
-  weights <- (df$light / sum(df$light, na.rm = na.rm))
-  centroidLE <- sum(as.numeric(df$datetime) * weights, na.rm = na.rm)
+  weights <- (df$light / sum(df$light, na.rm = TRUE))
+  centroidLE <- sum(as.numeric(df$time) * weights, na.rm = TRUE)
 
-  # Convert to POSIXct
-  if (lubridate::is.POSIXct(dtVar)) {
+  # Convert back to POSIXct
+  if (lubridate::is.POSIXct(timeVar)) {
     centroidLE <- centroidLE %>%
       round() %>%
-      lubridate::as_datetime(tz = lubridate::tz(dtVar))
+      lubridate::as_datetime(tz = lubridate::tz(timeVar))
   }
 
   # Return data frame or numeric vector
   if (as_df) {
-    return(tibble::tibble(centroidLE = val))
+    return(tibble::tibble(centroidLE = centroidLE))
   } else {
-    return(val)
+    return(centroidLE)
   }
 }
