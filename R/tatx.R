@@ -43,9 +43,9 @@ tat <- function(lightVar,
     tat = numeric()
   )
   for (c in threshold) {
-    val <- (sum(threshold(lightVar, c)) * sampling_int) %>%
+    tat <- (sum(threshold(lightVar, c)) * sampling_int) %>%
       from.secs(unit_out)
-    df <- df %>% tibble::add_row(threshold = c, tat = val)
+    df <- df %>% tibble::add_row(threshold = c, tat = tat)
   }
 
   # Reshape to wide format
@@ -92,13 +92,13 @@ tatr <- function(lightVar,
   for (i in 1:length(lower)) {
     cmin <- lower[i]
     cmax <- upper[i]
-    val <- (sum(between(lightVar, cmin, cmax)) * sampling_int) %>%
+    tat <- (sum(between(lightVar, cmin, cmax)) * sampling_int) %>%
       from.secs(unit_out)
     df <- df %>%
       tibble::add_row(
         threshold_min = cmin,
         threshold_max = cmax,
-        tat = val
+        tat = tat
       )
   }
 

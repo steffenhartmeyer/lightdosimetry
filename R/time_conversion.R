@@ -21,10 +21,11 @@ NULL
 to.secs <- function(t, unit) {
   unit <- substr(unit, 1, 1)
   switch(unit,
+    "s" = t,
     "m" = t * 60,
     "h" = t * 3600,
     "d" = t * 86400,
-    stop("Invalid unit. Possible values are ['m', 'h', 'd']!")
+    stop("Invalid unit. Possible values are ['s', 'm', 'h', 'd']!")
   )
 }
 
@@ -38,9 +39,10 @@ to.mins <- function(t, unit) {
   unit <- substr(unit, 1, 1)
   switch(unit,
     "s" = t / 60,
+    "m" = t,
     "h" = t * 60,
     "d" = t * 1440,
-    stop("Invalid unit. Possible values are ['s', 'h', 'd']!")
+    stop("Invalid unit. Possible values are ['s', 'm', 'h', 'd']!")
   )
 }
 
@@ -55,8 +57,9 @@ to.hours <- function(t, unit) {
   switch(unit,
     "s" = t / 3600,
     "m" = t / 60,
+    "h" = t,
     "d" = t * 24,
-    stop("Invalid unit. Possible values are ['s', 'm', 'd']!")
+    stop("Invalid unit. Possible values are ['s', 'm', 'h', 'd']!")
   )
 }
 
@@ -72,7 +75,8 @@ to.days <- function(t, unit) {
     "s" = t / 86400,
     "m" = t / 1440,
     "h" = t / 24,
-    stop("Invalid unit. Possible values are ['s', 'm', 'h']!")
+    "d" = t,
+    stop("Invalid unit. Possible values are ['s', 'm', 'h', 'd']!")
   )
 }
 
@@ -85,10 +89,11 @@ to.days <- function(t, unit) {
 from.secs <- function(t, unit) {
   unit <- substr(unit, 1, 1)
   switch(unit,
+    "s" = t,
     "m" = t / 60,
     "h" = t / 3600,
     "d" = t / 86400,
-    stop("Invalid unit. Possible values are ['m', 'h', 'd']!")
+    stop("Invalid unit. Possible values are ['s', 'm', 'h', 'd']!")
   )
 }
 
@@ -102,9 +107,10 @@ from.mins <- function(t, unit) {
   unit <- substr(unit, 1, 1)
   switch(unit,
     "s" = t * 60,
+    "m" = t,
     "h" = t / 60,
     "d" = t / 1440,
-    stop("Invalid unit. Possible values are ['s', 'h', 'd']!")
+    stop("Invalid unit. Possible values are ['s', 'm', 'h', 'd']!")
   )
 }
 
@@ -119,8 +125,9 @@ from.hours <- function(t, unit) {
   switch(unit,
     "s" = t * 3600,
     "m" = t * 60,
+    "h" = t,
     "d" = t / 24,
-    stop("Invalid unit. Possible values are ['s', 'm', 'd']!")
+    stop("Invalid unit. Possible values are ['s', 'm', 'h', 'd']!")
   )
 }
 
@@ -136,6 +143,7 @@ from.days <- function(t, unit) {
     "s" = t * 86400,
     "m" = t * 1440,
     "h" = t * 24,
+    "d" = t,
     stop("Invalid unit. Possible values are ['s', 'm', 'h']!")
   )
 }

@@ -27,7 +27,7 @@ ema <- function(lightVar,
   # Parse decay half-life
   if (!beta) {
     if (!is.numeric(decay)) {
-      decay <- parse_timeunit_tosecs(decay) / sampling_int
+      decay <- parse_timeunit_tosecs(decay)$secs / sampling_int
     }
     beta <- log(2) / decay
   } else {

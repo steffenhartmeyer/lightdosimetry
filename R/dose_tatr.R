@@ -9,9 +9,12 @@
 #' @param upper Single numeric value or vector specifying the upper bound of the
 #'    threshold intensity range. The sign indicates above/below
 #'    (see \code{\link{threshold}}). Must be same length as lower bound.
-#' @param sampling_int Numeric. Sampling interval in seconds. Defaults to 60.
+#' @param sampling_int Numeric. Sampling interval in seconds. If not specified
+#'    (default), the output will not be scaled according to the sampling interval.
 #' @param unit_out Character. Time unit of output. Possible values are
-#'    ("secs", "mins", "hours", "days"). Can be abbreviated. Defaults to "mins".
+#'    ("seconds", "minutes", "hours", "days"), which can be abbreviated.
+#'    If not specified (default), the output time unit is defined by the sampling
+#'    interval (if specified).
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #' @param wide Logical. Should the output be returned in wide format? Defaults to
@@ -26,14 +29,23 @@
 dose_tatr <- function(lightVar,
                       lower,
                       upper,
-                      sampling_int = 60,
-                      unit_out = "mins",
+                      sampling_int = NULL,
+                      unit_out = NULL,
                       as_df = TRUE,
                       wide = TRUE) {
 
   # Check that lower and upper bounds are same length
   if (length(lower) != length(upper)) {
     stop("Lower and upper bounds must be same length.")
+  }
+
+  if(is.null(sampling_int) | is.null(unit_out)){
+    if(xor(is.null(sampling_int), is.null(unit_out))){
+      warning("Sampling interval but no output unit specified or
+              vice versa. Therefore these arguments are ignored.")
+    }
+    sampling_int = 1
+    unit_out = "secs"
   }
 
   df <- tibble::tibble(
@@ -45,7 +57,7 @@ dose_tatr <- function(lightVar,
     cmin <- lower[i]
     cmax <- upper[i]
     dose_tat <- (sum(between(lightVar, cmin, cmax)) * sampling_int) %>%
-      from.secs(unit_out) * (cmax - cmin) / 2
+      from.secs(unit_out) * ((cmax - cmin) / 2)
     df <- df %>% tibble::add_row(
       threshold_min = cmin,
       threshold_max = cmax,
