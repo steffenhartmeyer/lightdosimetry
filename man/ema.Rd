@@ -4,20 +4,22 @@
 \alias{ema}
 \title{Exponential moving average filter (EMA)}
 \usage{
-ema(lightVar, decay, beta = FALSE, sampling_int = 60)
+ema(lightVar, decay, sampling_int = NULL, beta = FALSE)
 }
 \arguments{
 \item{lightVar}{Numeric vector containing the light data. Missing values are
 replaced by 0.}
 
-\item{decay}{Numeric value or character in the format "[numeric] [unit]", with
+\item{decay}{Numeric value or string in the format "[numeric] [unit]", with
 possible units ("seconds","minutes","hours","days"); units can be
-abbreviated, see \code{\link{parse_timeunit_tosecs}}.}
+abbreviated, see \code{\link{parse_timeunit_tosecs}}. If specified as a
+string, `sampling_int` must be specified as well.}
+
+\item{sampling_int}{Numeric. Sampling interval in seconds. Must be specified
+if `decay` is a string in the format "[numeric] [unit]". Defaults to NULL.}
 
 \item{beta}{Logical. Is `decay` refering directly to beta value? If
 TRUE, `decay` must be a numeric value.}
-
-\item{sampling_int}{Numeric. Sampling interval in seconds. Defaults to 60.}
 }
 \value{
 Numeric vector of filtered light data

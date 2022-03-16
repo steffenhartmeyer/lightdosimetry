@@ -19,8 +19,3 @@ Single column data frame or vector.
 This function calculates the integral of light exposure across the given
 interval.
 }
-\references{
-Price, L. L. A. (2014). On the Role of Exponential Smoothing in
-   Circadian Dosimetry. \emph{Photochemistry and Photobiology}, 90(5),
-   \url{1184–1192. https://doi.org/10.1111/php.12282}
-}

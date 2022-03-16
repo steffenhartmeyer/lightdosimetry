@@ -9,8 +9,8 @@
 tat(
   lightVar,
   threshold,
-  sampling_int = 60,
-  unit_out = "mins",
+  sampling_int = NULL,
+  unit_out = NULL,
   as_df = TRUE,
   wide = TRUE
 )
@@ -19,8 +19,8 @@ tatr(
   lightVar,
   lower,
   upper,
-  sampling_int = 60,
-  unit_out = "mins",
+  sampling_int = NULL,
+  unit_out = NULL,
   as_df = TRUE,
   wide = TRUE
 )
@@ -31,10 +31,12 @@ tatr(
 \item{threshold}{Single numeric value or vector specifying threshold
 intensities. The sign indicates above/below (see \code{\link{threshold}}).}
 
-\item{sampling_int}{Numeric. Sampling interval in seconds. Defaults to 60.}
+\item{sampling_int}{Numeric. Sampling interval in seconds. If not specified
+(default), no time scaling will be performed.}
 
 \item{unit_out}{Character. Time unit of output. Possible values are
-("secs", "mins", "hours", "days"). Can be abbreviated. Defaults to "mins".}
+("seconds", "minutes", "hours", "days"), which can be abbreviated.
+If not specified (default), no time scaling will be performed.}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}

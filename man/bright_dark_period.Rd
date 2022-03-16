@@ -7,11 +7,10 @@
 bright_dark_period(
   lightVar,
   timeVar,
-  timespan,
   period_type,
-  sampling_int = 60,
+  timespan,
+  sampling_int,
   loop = FALSE,
-  na_rm = TRUE,
   as_df = TRUE,
   wide = TRUE
 )
@@ -21,15 +20,15 @@ bright_dark_period(
 
 \item{timeVar}{Vector containing the time data. Can be POSIXct or numeric.}
 
+\item{period_type}{String indicating the type of period. Must be "bright" or
+"dark".}
+
 \item{timespan}{Single string or vector of strings with the timespan(s).
 Timespans must be in the format "[numeric] [unit]", with possible units
 ("seconds","minutes","hours","days"). Units can be abbreviated.
 See \code{\link{parse_timeunit_tosecs}}.}
 
-\item{period_type}{String indicating the type of period. Must be "bright" or
-"dark".}
-
-\item{sampling_int}{Numeric. Sampling interval in seconds. Defaults to 60.}
+\item{sampling_int}{Numeric. Sampling interval in seconds.}
 
 \item{loop}{Logical. Should the data be looped? Defaults to FALSE.}
 

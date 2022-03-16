@@ -11,7 +11,6 @@ pulses_above_threshold(
   min_length = 0,
   max_interrupt = 0,
   prop_interrupt = 0,
-  sampling_int = 60,
   unit_pulse_length = "mins",
   return_indices = FALSE,
   loop = FALSE,
@@ -24,8 +23,7 @@ pulses_above_threshold(
 replaced by 0.}
 
 \item{timeVar}{Vector containing the time data. Can be POSIXct or numeric.
-Should be a vector of regularly spaced timestamps, otherwise the calculations
-may be misleading.}
+Must be regularly spaced.}
 
 \item{threshold}{Single numeric value or vector specifying threshold
 intensities. The sign indicates above/below (see \code{\link{threshold}}).}
@@ -44,11 +42,9 @@ numeric or string in the format "[numeric] [unit]", with possible units
 maximum proportion of the total number of interruptions to light above
 threshold. Defaults to 0.}
 
-\item{sampling_int}{Numeric. Sampling interval in seconds. Defaults to 60.}
-
 \item{unit_pulse_length}{Character. Time unit of pulse length metric.
-Possible values are ("secs", "mins", "hours", "days"). Can be abbreviated.
-Defaults to "mins".}
+Possible values are ("seconds", "minutes", "hours", "days"), which can be
+abbreviated. Defaults to "minutes".}
 
 \item{return_indices}{Logical. Should the cluster indices be returned? Defaults
 to FALSE.}

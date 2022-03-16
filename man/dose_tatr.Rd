@@ -8,8 +8,8 @@ dose_tatr(
   lightVar,
   lower,
   upper,
-  sampling_int = 60,
-  unit_out = "mins",
+  sampling_int = NULL,
+  unit_out = NULL,
   as_df = TRUE,
   wide = TRUE
 )
@@ -25,10 +25,12 @@ threshold intensity range. The sign indicates above/below
 threshold intensity range. The sign indicates above/below
 (see \code{\link{threshold}}). Must be same length as lower bound.}
 
-\item{sampling_int}{Numeric. Sampling interval in seconds. Defaults to 60.}
+\item{sampling_int}{Numeric. Sampling interval in seconds. If not specified
+(default), no time scaling will be performed.}
 
 \item{unit_out}{Character. Time unit of output. Possible values are
-("secs", "mins", "hours", "days"). Can be abbreviated. Defaults to "mins".}
+("seconds", "minutes", "hours", "days"), which can be abbreviated.
+If not specified (default), no time scaling will be performed.}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}

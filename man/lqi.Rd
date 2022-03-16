@@ -4,7 +4,7 @@
 \alias{lqi}
 \title{Light Quality Index}
 \usage{
-lqi(lightVar, upper = 500, lower = 10, sampling_int = 60, as_df = TRUE)
+lqi(lightVar, upper = 500, lower = 10, as_df = TRUE)
 }
 \arguments{
 \item{lightVar}{Numeric vector containing the light data.}
@@ -14,8 +14,6 @@ level. Defaults to 500 lx as described in Martinez-Nicolas et al. (2011).}
 
 \item{lower}{Single numeric value specifying the threshold of the dark light
 level. Defaults to 10 lx as described in Martinez-Nicolas et al. (2011).}
-
-\item{sampling_int}{Numeric. Sampling interval in seconds. Defaults to 60.}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}
