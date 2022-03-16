@@ -13,7 +13,7 @@
 #'    See \code{\link{parse_timeunit_tosecs}}.
 #' @param period_type String indicating the type of period. Must be "bright" or
 #'    "dark".
-#' @param sampling_int Numeric. Sampling interval in seconds. Defaults to 60.
+#' @param sampling_int Numeric. Sampling interval in seconds.
 #' @param loop Logical. Should the data be looped? Defaults to FALSE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
@@ -34,7 +34,7 @@ bright_dark_period <- function(lightVar,
                                timeVar,
                                timespan,
                                period_type,
-                               sampling_int = 60,
+                               sampling_int,
                                loop = FALSE,
                                na_rm = TRUE,
                                as_df = TRUE,
@@ -42,8 +42,7 @@ bright_dark_period <- function(lightVar,
 
   # Check whether time series is regularly spaced
   if (length(unique(diff(timeVar))) > 1) {
-    warning("Time variable is not regularly spaced. Calculated results may be
-            incorrect!")
+    warning("Time variable is not regularly spaced. Calculated results may be incorrect!")
   }
 
   # Parse period
@@ -73,7 +72,7 @@ bright_dark_period <- function(lightVar,
     parsed_ts <- parse_timeunit_tosecs(ts)
 
     # Calculate window size
-    window <- (parsed_ts$secs / sample_int) %>% floor()
+    window <- (parsed_ts$secs / sampling_int) %>% floor()
     if (window %% 2 != 0) window <- window + 1
 
     # Calculate rolling means

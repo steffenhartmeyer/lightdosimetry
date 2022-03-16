@@ -31,8 +31,7 @@ ema <- function(lightVar,
   if (!beta) {
     if (!is.numeric(decay)) {
       if(is.null(sampling_int)){
-        stop("Decay half life cannot be parsed because the sampling interval
-             is not specified!")
+        stop("Decay half life cannot be parsed because the sampling interval is not specified!")
       }
       decay <- parse_timeunit_tosecs(decay)$secs / sampling_int
     }

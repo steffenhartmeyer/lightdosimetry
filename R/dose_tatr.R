@@ -41,8 +41,7 @@ dose_tatr <- function(lightVar,
 
   if(is.null(sampling_int) | is.null(unit_out)){
     if(xor(is.null(sampling_int), is.null(unit_out))){
-      warning("Sampling interval but no output unit specified or
-              vice versa. Therefore these arguments are ignored.")
+      warning("Sampling interval but no output unit specified or vice versa. Therefore these arguments are ignored.")
     }
     sampling_int = 1
     unit_out = "secs"
