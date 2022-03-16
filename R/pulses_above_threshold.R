@@ -79,14 +79,14 @@ pulses_above_threshold <- function(lightVar,
   if (is.numeric(min_length)) {
     minlen <- min_length
   } else {
-    minlen <- parse.timeunit.tosecs(min_length)$secs / sampling_int
+    minlen <- parse_timeunit_tosecs(min_length)$secs / sampling_int
   }
 
   # Parse maximum number of interruptions
   if (is.numeric(max_interrupt)) {
     maxint <- max_interrupt
   } else {
-    maxint <- parse.timeunit.tosecs(max_interrupt)$secs / sampling_int
+    maxint <- parse_timeunit_tosecs(max_interrupt)$secs / sampling_int
   }
 
   # Pre-allocate containers
