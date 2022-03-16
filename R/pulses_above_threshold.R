@@ -162,7 +162,7 @@ pulses_above_threshold <- function(lightVar,
             # Add clusters to final cluster lists
             clusters.light <- append(clusters.light, temp.light)
             clusters.time <- append(clusters.time, temp.time)
-            if (indices) clusters.index <- append(index, temp.clusters)
+            if (return_indices) clusters.index <- append(index, temp.clusters)
 
             # Reset everything
             clustering <- FALSE
