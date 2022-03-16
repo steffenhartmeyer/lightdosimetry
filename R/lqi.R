@@ -8,7 +8,6 @@
 #'    level. Defaults to 500 lx as described in Martinez-Nicolas et al. (2011).
 #' @param lower Single numeric value specifying the threshold of the dark light
 #'    level. Defaults to 10 lx as described in Martinez-Nicolas et al. (2011).
-#' @param sampling_int Numeric. Sampling interval in seconds. Defaults to 60.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #'
@@ -30,10 +29,10 @@
 lqi <- function(lightVar,
                 upper = 500,
                 lower = 10,
-                sampling_int = 60,
                 as_df = TRUE) {
-  high <- tat(lightVar, upper, sampling_int)[[1]]
-  low <- tat(lightVar, -1 * lower, sampling_int)[[1]]
+
+  high <- tat(lightVar, upper)[[1]]
+  low <- tat(lightVar, -1 * lower)[[1]]
   lqi <- (high - low) / (high + low)
   if (as_df) {
     return(tibble::tibble(LQI = lqi))

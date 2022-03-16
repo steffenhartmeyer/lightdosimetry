@@ -12,9 +12,11 @@
 #' @param upper Single numeric value or vector specifying the upper bound of the
 #'    threshold intensity range. The sign indicates above/below
 #'    (see \code{\link{threshold}}). Must be same length as lower bound.
-#' @param sampling_int Numeric. Sampling interval in seconds. Defaults to 60.
+#' @param sampling_int Numeric. Sampling interval in seconds. If not specified
+#'    (default), no time scaling will be performed.
 #' @param unit_out Character. Time unit of output. Possible values are
-#'    ("secs", "mins", "hours", "days"). Can be abbreviated. Defaults to "mins".
+#'    ("seconds", "minutes", "hours", "days"), which can be abbreviated.
+#'    If not specified (default), no time scaling will be performed.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #' @param wide Logical. Should the output be returned in wide format? Defaults to
@@ -34,10 +36,18 @@ NULL
 #'
 tat <- function(lightVar,
                 threshold,
-                sampling_int = 60,
-                unit_out = "mins",
+                sampling_int = NULL,
+                unit_out = NULL,
                 as_df = TRUE,
                 wide = TRUE) {
+
+  # Check whether sampling interval and output unit specified
+  if(is.null(sampling_int) | is.null(unit_out)){
+    warning("No sampling interval and/or output unit specified. Returning raw output.")
+    sampling_int = 1
+    unit_out = "secs"
+  }
+
   df <- tibble::tibble(
     threshold = numeric(),
     tat = numeric()
@@ -74,14 +84,21 @@ tat <- function(lightVar,
 tatr <- function(lightVar,
                  lower,
                  upper,
-                 sampling_int = 60,
-                 unit_out = "mins",
+                 sampling_int = NULL,
+                 unit_out = NULL,
                  as_df = TRUE,
                  wide = TRUE) {
 
   # Check that lower and upper bounds are same length
   if (length(lower) != length(upper)) {
     stop("Lower and upper bounds must be same length.")
+  }
+
+  # Check whether sampling interval and output unit specified
+  if(is.null(sampling_int) | is.null(unit_out)){
+    warning("No sampling interval and/or output unit specified. Returning raw output.")
+    sampling_int = 1
+    unit_out = "secs"
   }
 
   df <- tibble::tibble(

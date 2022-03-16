@@ -10,11 +10,10 @@
 #'    threshold intensity range. The sign indicates above/below
 #'    (see \code{\link{threshold}}). Must be same length as lower bound.
 #' @param sampling_int Numeric. Sampling interval in seconds. If not specified
-#'    (default), the output will not be scaled according to the sampling interval.
+#'    (default), no time scaling will be performed.
 #' @param unit_out Character. Time unit of output. Possible values are
 #'    ("seconds", "minutes", "hours", "days"), which can be abbreviated.
-#'    If not specified (default), the output time unit is defined by the sampling
-#'    interval (if specified).
+#'    If not specified (default), no time scaling will be performed.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #' @param wide Logical. Should the output be returned in wide format? Defaults to
@@ -40,9 +39,7 @@ dose_tatr <- function(lightVar,
   }
 
   if(is.null(sampling_int) | is.null(unit_out)){
-    if(xor(is.null(sampling_int), is.null(unit_out))){
-      warning("Sampling interval but no output unit specified or vice versa. Therefore these arguments are ignored.")
-    }
+    warning("No sampling interval and/or output unit specified. Returning raw output.")
     sampling_int = 1
     unit_out = "secs"
   }

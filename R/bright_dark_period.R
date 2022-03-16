@@ -7,12 +7,12 @@
 #'
 #' @param lightVar Numeric vector containing the light data.
 #' @param timeVar Vector containing the time data. Can be POSIXct or numeric.
+#' @param period_type String indicating the type of period. Must be "bright" or
+#'    "dark".
 #' @param timespan Single string or vector of strings with the timespan(s).
 #'    Timespans must be in the format "[numeric] [unit]", with possible units
 #'    ("seconds","minutes","hours","days"). Units can be abbreviated.
 #'    See \code{\link{parse_timeunit_tosecs}}.
-#' @param period_type String indicating the type of period. Must be "bright" or
-#'    "dark".
 #' @param sampling_int Numeric. Sampling interval in seconds.
 #' @param loop Logical. Should the data be looped? Defaults to FALSE.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
@@ -32,11 +32,10 @@
 #' @examples
 bright_dark_period <- function(lightVar,
                                timeVar,
-                               timespan,
                                period_type,
+                               timespan,
                                sampling_int,
                                loop = FALSE,
-                               na_rm = TRUE,
                                as_df = TRUE,
                                wide = TRUE) {
 
@@ -76,10 +75,8 @@ bright_dark_period <- function(lightVar,
     if (window %% 2 != 0) window <- window + 1
 
     # Calculate rolling means
-    means <- zoo::rollapply(lightVar, window, mean,
-      na.rm = TRUE,
-      partial = FALSE, fill = NA
-    )
+    means <- zoo::rollapply(lightVar, window, mean, na.rm = TRUE,
+                            partial = FALSE, fill = NA)
 
     # Find maximum/minimum mean value
     if (max) {
@@ -107,9 +104,9 @@ bright_dark_period <- function(lightVar,
 
   # Rename
   if (max) {
-    names(df)[-1] <- paste0("max_period_", names(df)[-1])
+    names(df)[-1] <- paste0("bright_period_", names(df)[-1])
   } else {
-    names(df)[-1] <- paste0("min_period_", names(df)[-1])
+    names(df)[-1] <- paste0("dark_period_", names(df)[-1])
   }
 
   # Reshape to wide format
