@@ -10,8 +10,7 @@
 #' @param lightVar Numeric vector containing the light data. Missing values are
 #'    replaced by 0.
 #' @param timeVar Vector containing the time data. Can be POSIXct or numeric.
-#'    Should be a vector of regularly spaced timestamps, otherwise the calculations
-#'    may be misleading.
+#'    Must be regularly spaced.
 #' @param threshold Single numeric value or vector specifying threshold
 #'    intensities. The sign indicates above/below (see \code{\link{threshold}}).
 #' @param min_length Minimum length of each cluster. Can be numeric or string
@@ -25,10 +24,9 @@
 #' @param prop_interrupt Single numeric value between [0, 1] specifying the
 #'    maximum proportion of the total number of interruptions to light above
 #'    threshold. Defaults to 0.
-#' @param sampling_int Numeric. Sampling interval in seconds. Defaults to 60.
 #' @param unit_pulse_length Character. Time unit of pulse length metric.
-#'    Possible values are ("secs", "mins", "hours", "days"). Can be abbreviated.
-#'    Defaults to "mins".
+#'    Possible values are ("seconds", "minutes", "hours", "days"), which can be
+#'    abbreviated. Defaults to "minutes".
 #' @param return_indices Logical. Should the cluster indices be returned? Defaults
 #'    to FALSE.
 #' @param loop Logical. Should the data be looped? Defaults to FALSE.
@@ -55,7 +53,6 @@ pulses_above_threshold <- function(lightVar,
                                    min_length = 0,
                                    max_interrupt = 0,
                                    prop_interrupt = 0,
-                                   sampling_int = 60,
                                    unit_pulse_length = "mins",
                                    return_indices = FALSE,
                                    loop = FALSE,
@@ -64,8 +61,11 @@ pulses_above_threshold <- function(lightVar,
 
   # Check whether time series is regularly spaced
   if (length(unique(diff(timeVar))) > 1) {
-    warning("Time variable is not regularly spaced. Calculated results may be incorrect!")
+    stop("Time variable must be regularly spaced!")
   }
+
+  # Get sampling interval in seconds from data
+  sampling_int = as.numeric(timeVar[2]) - as.numeric(timeVar[1])
 
   # Loop data
   if (loop) {
