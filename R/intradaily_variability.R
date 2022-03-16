@@ -23,8 +23,7 @@
 intradaily_variability <- function(lightVar,
                                    datetimeVar,
                                    as_df = TRUE) {
-
-  if(!lubridate::is.POSIXct(datetimeVar)){
+  if (!lubridate::is.POSIXct(datetimeVar)) {
     stop("Datetime variable must be POSIXct!")
   }
 

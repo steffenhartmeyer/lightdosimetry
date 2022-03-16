@@ -23,14 +23,15 @@
 interdaily_stability <- function(lightVar,
                                  datetimeVar,
                                  as_df = TRUE) {
-
-  if(!lubridate::is.POSIXct(datetimeVar)){
+  if (!lubridate::is.POSIXct(datetimeVar)) {
     stop("Datetime variable must be POSIXct!")
   }
 
   # Hourly averages for each day
-  total_hourly <- tibble::tibble(light = lightVar,
-                                 datetime = datetimeVar) %>%
+  total_hourly <- tibble::tibble(
+    light = lightVar,
+    datetime = datetimeVar
+  ) %>%
     dplyr::group_by(floor_date(datetime, unit = "1 hour")) %>%
     dplyr::summarise(light = mean(light, na.rm = TRUE))
 

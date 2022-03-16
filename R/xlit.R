@@ -61,7 +61,8 @@ mlit <- function(lightVar,
       tidyr::pivot_wider(
         names_from = threshold,
         values_from = mlit,
-        names_prefix = "mlit.")
+        names_prefix = "mlit."
+      )
   }
 
   # Return data frame or matrix
@@ -108,7 +109,8 @@ flit <- function(lightVar,
       tidyr::pivot_wider(
         names_from = threshold,
         values_from = flit,
-        names_prefix = "flit.")
+        names_prefix = "flit."
+      )
   }
 
   # Return data frame or matrix
@@ -155,7 +157,8 @@ llit <- function(lightVar,
       tidyr::pivot_wider(
         names_from = threshold,
         values_from = llit,
-        names_prefix = "llit.")
+        names_prefix = "llit."
+      )
   }
 
   # Return data frame or matrix

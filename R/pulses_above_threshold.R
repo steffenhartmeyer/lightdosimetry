@@ -63,7 +63,7 @@ pulses_above_threshold <- function(lightVar,
                                    wide = TRUE) {
 
   # Check whether time series is regularly spaced
-  if (length(unique(diff(timeVar))) > 1){
+  if (length(unique(diff(timeVar))) > 1) {
     warning("Time variable is not regularly spaced. Calculated results may be
             incorrect!")
   }

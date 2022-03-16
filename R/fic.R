@@ -28,7 +28,7 @@ fic <- function(lightVar,
                 wide = TRUE) {
 
   # Remove missing values
-  if(na_rm){
+  if (na_rm) {
     lightVar <- na.omit(lightVar)
   }
 
@@ -46,7 +46,8 @@ fic <- function(lightVar,
       tidyr::pivot_wider(
         names_from = threshold,
         values_from = fic,
-        names_prefix = "fic.")
+        names_prefix = "fic."
+      )
   }
 
   # Return data frame or numeric matrix

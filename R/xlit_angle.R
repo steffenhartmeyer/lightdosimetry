@@ -42,7 +42,6 @@ flit_angle <- function(lightVar,
                        unit_out = "mins",
                        as_df = TRUE,
                        wide = TRUE) {
-
   df <- tibble::tibble(threshold = numeric(), flit_angle = numeric())
 
   # Calculate FLiT Angle
@@ -57,9 +56,11 @@ flit_angle <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>% tidyr::pivot_wider(names_from = threshold,
-                                    values_from = flit_angle,
-                                    names_prefix = "flit_angle.")
+    df <- df %>% tidyr::pivot_wider(
+      names_from = threshold,
+      values_from = flit_angle,
+      names_prefix = "flit_angle."
+    )
   }
 
   # Return data frame or numeric matrix
@@ -86,7 +87,6 @@ llit_angle <- function(lightVar,
                        unit_out = "mins",
                        as_df = TRUE,
                        wide = TRUE) {
-
   df <- tibble::tibble(threshold = numeric(), llit_angle = numeric())
 
   # Calculate LLiT Angle
@@ -101,9 +101,11 @@ llit_angle <- function(lightVar,
 
   # Reshape to wide format
   if (wide) {
-    df <- df %>% tidyr::pivot_wider(names_from = threshold,
-                                    values_from = llit_angle,
-                                    names_prefix = "llit_angle.")
+    df <- df %>% tidyr::pivot_wider(
+      names_from = threshold,
+      values_from = llit_angle,
+      names_prefix = "llit_angle."
+    )
   }
 
   # Return data frame or numeric matrix

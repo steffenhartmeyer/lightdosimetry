@@ -95,9 +95,11 @@ tatr <- function(lightVar,
     val <- (sum(between(lightVar, cmin, cmax)) * sampling_int) %>%
       from.secs(unit_out)
     df <- df %>%
-      tibble::add_row(threshold_min = cmin,
-                      threshold_max = cmax,
-                      tat = val)
+      tibble::add_row(
+        threshold_min = cmin,
+        threshold_max = cmax,
+        tat = val
+      )
   }
 
   # Reshape to wide format

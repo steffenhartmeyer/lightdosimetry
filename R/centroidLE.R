@@ -35,16 +35,15 @@ centroidLE <- function(lightVar,
   if (!is.null(bin_size)) {
     # Check whether bin size specification is correct
     if ((is.character(bin_size) & !lubridate::is.POSIXct(timeVar)) |
-        (!is.character(bin_size) & lubridate::is.POSIXct(timeVar))) {
+      (!is.character(bin_size) & lubridate::is.POSIXct(timeVar))) {
       stop("Bin size specification not compatible with type of time variable!")
     }
     # Average into bins
-    if(lubridate::is.POSIXct(timeVar)){
+    if (lubridate::is.POSIXct(timeVar)) {
       df <- df %>%
         dplyr::group_by(time = lubridate::floor_date(time, unit = bin_size)) %>%
         dplyr::summarise(light = mean(light, na.rm = TRUE))
-    }
-    else{
+    } else {
       df <- df %>%
         dplyr::group_by(time = cut(time, breaks = bin_size)) %>%
         dplyr::summarise(light = mean(light, na.rm = TRUE))

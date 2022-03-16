@@ -24,13 +24,13 @@ disparity_index <- function(lightVar,
                             as_df = TRUE) {
 
   # Remove NAs
-  if (na_rm){
+  if (na_rm) {
     lightVar <- na.omit(lightVar)
   }
 
   # Calculate disparity index
   fractions <- (lightVar[2:length(lightVar)] + 1) /
-               (lightVar[1:length(lightVar)-1] + 1)
+    (lightVar[1:length(lightVar) - 1] + 1)
   di <- 1 / (length(lightVar) - 1) * sum(abs(log(fractions)))
 
   # Return as data frame or numeric vector

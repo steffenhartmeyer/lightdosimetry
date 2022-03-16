@@ -12,8 +12,7 @@
 #'
 #' @examples
 regularise_time <- function(timeVar,
-                                sampling_int) {
-
+                            sampling_int) {
   start <- as.numeric(timeVar)[1]
   end <- as.numeric(timeVar)[length(timeVar)]
   new_time <- seq(start, end, sampling_int)

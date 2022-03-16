@@ -41,14 +41,13 @@ bright_dark_period <- function(lightVar,
                                wide = TRUE) {
 
   # Check whether time series is regularly spaced
-  if (length(unique(diff(timeVar))) > 1){
+  if (length(unique(diff(timeVar))) > 1) {
     warning("Time variable is not regularly spaced. Calculated results may be
             incorrect!")
   }
 
   # Parse period
-  max <- switch(
-    period_type,
+  max <- switch(period_type,
     "bright" = TRUE,
     "dark" = FALSE,
     stop("Wrong period type specification! Must be 'bright' or 'dark'.")
@@ -78,8 +77,10 @@ bright_dark_period <- function(lightVar,
     if (window %% 2 != 0) window <- window + 1
 
     # Calculate rolling means
-    means <- zoo::rollapply(lightVar, window, mean, na.rm = TRUE,
-                            partial = FALSE, fill = NA)
+    means <- zoo::rollapply(lightVar, window, mean,
+      na.rm = TRUE,
+      partial = FALSE, fill = NA
+    )
 
     # Find maximum/minimum mean value
     if (max) {

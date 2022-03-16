@@ -17,7 +17,7 @@ coeff_var <- function(lightVar,
                       as_df = TRUE) {
 
   # Remove NAs
-  if (na_rm){
+  if (na_rm) {
     lightVar <- na.omit(lightVar)
   }
 

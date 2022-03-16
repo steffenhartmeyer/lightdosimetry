@@ -46,18 +46,21 @@ dose_tatr <- function(lightVar,
     cmax <- upper[i]
     dose_tat <- (sum(between(lightVar, cmin, cmax)) * sampling_int) %>%
       from.secs(unit_out) * (cmax - cmin) / 2
-    df <- df %>% tibble::add_row(threshold_min = cmin,
-                                 threshold_max = cmax,
-                                 dose_tat = dose_tat)
-
+    df <- df %>% tibble::add_row(
+      threshold_min = cmin,
+      threshold_max = cmax,
+      dose_tat = dose_tat
+    )
   }
 
   # Reshape to wide format
   if (wide) {
     df <- df %>%
       tidyr::unite(threshold, threshold_min, threshold_max) %>%
-      tidyr::pivot_wider(names_from = threshold, values_from = dose_tat,
-                         names_prefix = "dose_tat.")
+      tidyr::pivot_wider(
+        names_from = threshold, values_from = dose_tat,
+        names_prefix = "dose_tat."
+      )
   }
 
   # Return as data frame or matrix

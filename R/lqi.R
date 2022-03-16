@@ -32,7 +32,6 @@ lqi <- function(lightVar,
                 lower = 10,
                 sampling_int = 60,
                 as_df = TRUE) {
-
   high <- tat(lightVar, upper, sampling_int)[[1]]
   low <- tat(lightVar, -1 * lower, sampling_int)[[1]]
   lqi <- (high - low) / (high + low)
