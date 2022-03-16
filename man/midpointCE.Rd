@@ -4,12 +4,13 @@
 \alias{midpointCE}
 \title{Midpoint of cumulative light exposure.}
 \usage{
-midpointCE(lightVar, dtVar, as_df = TRUE)
+midpointCE(lightVar, timeVar, as_df = TRUE)
 }
 \arguments{
-\item{lightVar}{Numeric vector containing the light data.}
+\item{lightVar}{Numeric vector containing the light data. Missing values are
+replaced with 0.}
 
-\item{dtVar}{Vector containing the time data. Can be POSIXct or numeric.}
+\item{timeVar}{Vector containing the time data. Can be POSIXct or numeric.}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}

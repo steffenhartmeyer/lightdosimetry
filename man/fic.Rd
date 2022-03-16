@@ -4,7 +4,7 @@
 \alias{fic}
 \title{Frequency of intensity changes}
 \usage{
-fic(lightVar, threshold, na.rm = TRUE, as_df = TRUE, wide = TRUE)
+fic(lightVar, threshold, na_rm = FALSE, as_df = TRUE, wide = TRUE)
 }
 \arguments{
 \item{lightVar}{Numeric vector containing the light data.}
@@ -12,7 +12,7 @@ fic(lightVar, threshold, na.rm = TRUE, as_df = TRUE, wide = TRUE)
 \item{threshold}{Single numeric value or vector specifying threshold
 intensities. The sign indicates above/below (see \code{\link{threshold}}).}
 
-\item{na.rm}{Logical. Should missing values be removed? Defaults to TRUE.}
+\item{na_rm}{Logical. Should missing light values be removed? Defaults to FALSE.}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}

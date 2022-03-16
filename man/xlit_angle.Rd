@@ -8,7 +8,7 @@
 \usage{
 flit_angle(
   lightVar,
-  dtVar,
+  timeVar,
   threshold,
   unit_out = "mins",
   as_df = TRUE,
@@ -17,7 +17,7 @@ flit_angle(
 
 llit_angle(
   lightVar,
-  dtVar,
+  timeVar,
   threshold,
   unit_out = "mins",
   as_df = TRUE,
@@ -27,14 +27,14 @@ llit_angle(
 \arguments{
 \item{lightVar}{Numeric vector containing the light data.}
 
-\item{dtVar}{Vector containing the time data. Can be POSIXct or numeric.}
+\item{timeVar}{Vector containing the time data. Can be POSIXct or numeric.}
 
 \item{threshold}{Single numeric value or vector specifying threshold
 intensities. The sign indicates above/below (see \code{\link{threshold}}).}
 
 \item{unit_out}{String indicating the time unit of the output value.
 Possible values are ("seconds","minutes","hours","days"). Units can be
-abbreviated. Is only used if `dtVar` is POSIXct, otherwise no conversion
+abbreviated. Is only used if `timeVar` is POSIXct, otherwise no conversion
 will be performed. Defaults to "minutes".}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults

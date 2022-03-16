@@ -35,8 +35,6 @@ to TRUE.}
 
 \item{wide}{Logical. Should the output be returned in wide format? Defaults to
 TRUE.}
-
-\item{na.rm}{Logical. Should missing values be removed? Defaults to TRUE.}
 }
 \value{
 Data frame or matrix with pairs of threshold and calculated values.

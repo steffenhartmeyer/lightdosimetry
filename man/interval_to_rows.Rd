@@ -4,12 +4,12 @@
 \alias{interval_to_rows}
 \title{Interval to data frame rows}
 \usage{
-interval_to_rows(df, rowvar, from, to, by, removeBounds = TRUE)
+interval_to_rows(df, newVar, from, to, by, removeBounds = TRUE)
 }
 \arguments{
 \item{df}{The data frame to be reshaped.}
 
-\item{rowvar}{Name of the new variable holding the row indices.}
+\item{newVar}{Name of the new variable holding the row indices.}
 
 \item{from}{Start of interval. Numeric or POSIXct.}
 

@@ -4,12 +4,10 @@
 \alias{cumulative_exposure}
 \title{Cumulative exposure (CE)}
 \usage{
-cumulative_exposure(lightVar, na.rm = TRUE, as_df = TRUE)
+cumulative_exposure(lightVar, as_df = TRUE)
 }
 \arguments{
 \item{lightVar}{Numeric vector containing the light data.}
-
-\item{na.rm}{Logical. Should missing values be removed? Defaults to TRUE.}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}

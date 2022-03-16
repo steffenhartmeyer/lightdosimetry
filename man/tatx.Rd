@@ -11,7 +11,6 @@ tat(
   threshold,
   sampling_int = 60,
   unit_out = "mins",
-  na.rm = TRUE,
   as_df = TRUE,
   wide = TRUE
 )
@@ -22,7 +21,6 @@ tatr(
   upper,
   sampling_int = 60,
   unit_out = "mins",
-  na.rm = TRUE,
   as_df = TRUE,
   wide = TRUE
 )
@@ -37,8 +35,6 @@ intensities. The sign indicates above/below (see \code{\link{threshold}}).}
 
 \item{unit_out}{Character. Time unit of output. Possible values are
 ("secs", "mins", "hours", "days"). Can be abbreviated. Defaults to "mins".}
-
-\item{na.rm}{Logical. Should missing values be removed? Defaults to TRUE.}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}

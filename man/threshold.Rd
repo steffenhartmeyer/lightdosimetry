@@ -4,10 +4,10 @@
 \alias{threshold}
 \title{Light above or below threshold?}
 \usage{
-threshold(light, threshold)
+threshold(lightVar, threshold)
 }
 \arguments{
-\item{light}{Numeric value or vector of light data.}
+\item{lightVar}{Numeric value or vector of light data.}
 
 \item{threshold}{Single numeric value specifying threshold
 intensity. The sign indicates above/below (negative values = below,

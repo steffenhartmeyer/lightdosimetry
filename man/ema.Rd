@@ -7,7 +7,8 @@
 ema(lightVar, decay, beta = FALSE, sampling_int = 60)
 }
 \arguments{
-\item{lightVar}{Numeric vector containing the light data.}
+\item{lightVar}{Numeric vector containing the light data. Missing values are
+replaced by 0.}
 
 \item{decay}{Numeric value or character in the format "[numeric] [unit]", with
 possible units ("seconds","minutes","hours","days"); units can be

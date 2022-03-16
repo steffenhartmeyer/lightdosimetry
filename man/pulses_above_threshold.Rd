@@ -6,7 +6,7 @@
 \usage{
 pulses_above_threshold(
   lightVar,
-  dtVar,
+  timeVar,
   threshold,
   min_length = 0,
   max_interrupt = 0,
@@ -20,9 +20,12 @@ pulses_above_threshold(
 )
 }
 \arguments{
-\item{lightVar}{Numeric vector containing the light data.}
+\item{lightVar}{Numeric vector containing the light data. Missing values are
+replaced by 0.}
 
-\item{dtVar}{Vector containing the time data. Can be POSIXct or numeric.}
+\item{timeVar}{Vector containing the time data. Can be POSIXct or numeric.
+Should be a vector of regularly spaced timestamps, otherwise the calculations
+may be misleading.}
 
 \item{threshold}{Single numeric value or vector specifying threshold
 intensities. The sign indicates above/below (see \code{\link{threshold}}).}

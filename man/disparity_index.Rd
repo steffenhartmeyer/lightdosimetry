@@ -4,12 +4,12 @@
 \alias{disparity_index}
 \title{Disparity index}
 \usage{
-disparity_index(lightVar, na.rm = TRUE, as_df = TRUE)
+disparity_index(lightVar, na_rm = TRUE, as_df = TRUE)
 }
 \arguments{
 \item{lightVar}{Numeric vector containing the light data.}
 
-\item{na.rm}{Logical. Should missing values be removed? Defaults to TRUE.}
+\item{na_rm}{Logical. Should missing values be removed? Defaults to TRUE.}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}

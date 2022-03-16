@@ -7,16 +7,16 @@
 \alias{llit}
 \title{Mean/first/last timing above/below threshold.}
 \usage{
-mlit(lightVar, dtVar, threshold, as_df = TRUE, wide = TRUE)
+mlit(lightVar, timeVar, threshold, as_df = TRUE, wide = TRUE)
 
-flit(lightVar, dtVar, threshold, as_df = TRUE, wide = TRUE)
+flit(lightVar, timeVar, threshold, as_df = TRUE, wide = TRUE)
 
-llit(lightVar, dtVar, threshold, as_df = TRUE, wide = TRUE)
+llit(lightVar, timeVar, threshold, as_df = TRUE, wide = TRUE)
 }
 \arguments{
 \item{lightVar}{Numeric vector containing the light data.}
 
-\item{dtVar}{Vector containing the time data. Can be POSIXct or numeric.}
+\item{timeVar}{Vector containing the time data. Can be POSIXct or numeric.}
 
 \item{threshold}{Single numeric value or vector specifying threshold
 intensities. The sign indicates above/below (see \code{\link{threshold}}).}

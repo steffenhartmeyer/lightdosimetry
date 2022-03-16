@@ -4,14 +4,12 @@
 \alias{intradaily_variability}
 \title{Intradaily variability (IV)}
 \usage{
-intradaily_variability(lightVar, dtVar, na.rm = TRUE, as_df = TRUE)
+intradaily_variability(lightVar, datetimeVar, as_df = TRUE)
 }
 \arguments{
 \item{lightVar}{Numeric vector containing the light data.}
 
-\item{dtVar}{Vector containing the time data. Can be POSIXct or numeric.}
-
-\item{na.rm}{Logical. Should missing values be removed? Defaults to TRUE.}
+\item{datetimeVar}{Vector containing the time data. Must be POSIXct.}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}

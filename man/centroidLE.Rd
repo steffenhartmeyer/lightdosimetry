@@ -4,19 +4,17 @@
 \alias{centroidLE}
 \title{Centroid of light exposure}
 \usage{
-centroidLE(lightVar, dtVar, bin_size = NULL, na.rm = TRUE, as_df = TRUE)
+centroidLE(lightVar, timeVar, bin_size = NULL, as_df = TRUE)
 }
 \arguments{
 \item{lightVar}{Numeric vector containing the light data.}
 
-\item{dtVar}{Vector containing the time data. Can be POSIXct or numeric.}
+\item{timeVar}{Vector containing the time data. Can be POSIXct or numeric.}
 
 \item{bin_size}{Numeric value or character specifying size of bins to average
-light data. If dtVar is POSIXct it must be a string with the time followed
+light data. If timeVar is POSIXct it must be a string with the time followed
 by its unit (e.g., "1 hour", "30 mins"). If NULL then no binning will be
 performed. Defaults to NULL.}
-
-\item{na.rm}{Logical. Should missing values be removed? Defaults to TRUE.}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}
