@@ -40,6 +40,7 @@ ema <- function(lightVar,
     if (!is.numeric(decay)) {
       stop("Beta must be a numeric value!")
     }
+    beta = decay
   }
 
   # EMA filter
