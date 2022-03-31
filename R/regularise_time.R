@@ -25,14 +25,14 @@ regularise_time <- function(timeVar,
     start <- as.numeric(timeVar)[1]
   }
   else{
-    start <- as.numeric(start)
+    start <- as.numeric(start)[1]
   }
 
   if(is.null(end)){
     end <- as.numeric(timeVar)[length(timeVar)]
   }
   else{
-    end <- as.numeric(end)
+    end <- as.numeric(end)[1]
   }
 
   # Make new time
