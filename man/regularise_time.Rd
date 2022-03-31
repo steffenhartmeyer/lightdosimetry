@@ -2,20 +2,28 @@
 % Please edit documentation in R/regularise_time.R
 \name{regularise_time}
 \alias{regularise_time}
-\title{Regularise datetime vector}
+\title{Regularise (date)time vector}
 \usage{
-regularise_time(timeVar, sampling_int)
+regularise_time(timeVar, sampling_int, start = NULL, end = NULL)
 }
 \arguments{
 \item{timeVar}{Vector containing the time data. Can be POSIXct or numeric.}
 
 \item{sampling_int}{Numeric. Sampling interval (in seconds if `timeVar` is
 POSIXct).}
+
+\item{start}{Start of interval to be regularised. Can be POSIXct or numeric.
+If not specified, the first element of the `timeVar` vector will be taken
+(default).}
+
+\item{end}{End of interval to be regularised. Can be POSIXct or numeric.
+If not specified, the last element of the `timeVar` vector will be taken
+(default).}
 }
 \value{
 Regularised time data.
 }
 \description{
-This function fills in gaps in a datetime vector and returns an equally spaced
-datetime vector.
+This function fills in gaps in a (date)time vector and returns an equally spaced
+(date)time vector.
 }
