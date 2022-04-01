@@ -21,17 +21,15 @@ regularise_time <- function(timeVar,
                             sampling_int,
                             start = NULL,
                             end = NULL) {
-  if(is.null(start)){
+  if (is.null(start)) {
     start <- as.numeric(timeVar)[1]
-  }
-  else{
+  } else {
     start <- as.numeric(start)[1]
   }
 
-  if(is.null(end)){
+  if (is.null(end)) {
     end <- as.numeric(timeVar)[length(timeVar)]
-  }
-  else{
+  } else {
     end <- as.numeric(end)[1]
   }
 

@@ -75,8 +75,10 @@ bright_dark_period <- function(lightVar,
     if (window %% 2 != 0) window <- window + 1
 
     # Calculate rolling means
-    means <- zoo::rollapply(lightVar, window, mean, na.rm = TRUE,
-                            partial = FALSE, fill = NA)
+    means <- zoo::rollapply(lightVar, window, mean,
+      na.rm = TRUE,
+      partial = FALSE, fill = NA
+    )
 
     # Find maximum/minimum mean value
     if (max) {

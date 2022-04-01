@@ -21,8 +21,7 @@
 ema <- function(lightVar,
                 decay,
                 sampling_int = NULL,
-                beta = FALSE
-                ) {
+                beta = FALSE) {
 
   # Replace missing values with 0
   lightVar[is.na(lightVar)] <- 0
@@ -30,7 +29,7 @@ ema <- function(lightVar,
   # Parse decay half-life
   if (!beta) {
     if (!is.numeric(decay)) {
-      if(is.null(sampling_int)){
+      if (is.null(sampling_int)) {
         stop("Decay half life cannot be parsed because the sampling interval is not specified!")
       }
       decay <- parse_timeunit_tosecs(decay)$secs / sampling_int
@@ -40,7 +39,7 @@ ema <- function(lightVar,
     if (!is.numeric(decay)) {
       stop("Beta must be a numeric value!")
     }
-    beta = decay
+    beta <- decay
   }
 
   # EMA filter

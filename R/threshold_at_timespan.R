@@ -23,45 +23,49 @@
 #' @export
 #'
 #' @examples
-threshold_at_timespan = function(lightVar,
-                                 timespan,
-                                 sampling_int = NULL,
-                                 above = TRUE,
-                                 as_df = TRUE,
-                                 wide = TRUE){
+threshold_at_timespan <- function(lightVar,
+                                  timespan,
+                                  sampling_int = NULL,
+                                  above = TRUE,
+                                  as_df = TRUE,
+                                  wide = TRUE) {
 
   # Check whether sampling interval and output unit specified
-  if(is.null(sampling_int) | is.numeric(timespan)){
+  if (is.null(sampling_int) | is.numeric(timespan)) {
     warning("No sampling interval and/or timespan unit specified. Returning raw output.")
-    sampling_int = 1
-    timespan = paste(timespan, "secs")
+    sampling_int <- 1
+    timespan <- paste(timespan, "secs")
   }
 
-  df = tibble::tibble(timespan = numeric(),
-                      threshold = numeric())
-  for(ts in timespan){
-    parsed_ts = parse_timeunit_tosecs(ts)
-    idx = (parsed_ts$secs / sampling_int) %>% floor()
-    sorted = sort(lightVar, decreasing = above)
-    threshold = sorted[idx]
-    df = df %>% tibble::add_row(timespan = as.numeric(parsed_ts$time),
-                                threshold = threshold)
+  df <- tibble::tibble(
+    timespan = numeric(),
+    threshold = numeric()
+  )
+  for (ts in timespan) {
+    parsed_ts <- parse_timeunit_tosecs(ts)
+    idx <- (parsed_ts$secs / sampling_int) %>% floor()
+    sorted <- sort(lightVar, decreasing = above)
+    threshold <- sorted[idx]
+    df <- df %>% tibble::add_row(
+      timespan = as.numeric(parsed_ts$time),
+      threshold = threshold
+    )
   }
 
   # Reshape to wide format
-  if(wide){
-    df = df %>%
+  if (wide) {
+    df <- df %>%
       tidyr::pivot_wider(
         names_from = timespan,
         values_from = threshold,
-        names_prefix = "threshold.")
+        names_prefix = "threshold."
+      )
   }
 
   # Return as data frame or numeric
-  if(as_df){
+  if (as_df) {
     return(df)
-  }
-  else{
+  } else {
     return(as.numeric(df))
   }
 }

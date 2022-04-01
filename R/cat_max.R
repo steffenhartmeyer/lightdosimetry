@@ -19,57 +19,61 @@
 #' @export
 #'
 #' @examples
-cat_max = function(lightVar,
-                   threshold,
-                   sampling_int = NULL,
-                   unit_out = NULL,
-                   loop = FALSE,
-                   as_df = TRUE,
-                   wide = TRUE){
+cat_max <- function(lightVar,
+                    threshold,
+                    sampling_int = NULL,
+                    unit_out = NULL,
+                    loop = FALSE,
+                    as_df = TRUE,
+                    wide = TRUE) {
 
   # Check whether sampling interval and output unit specified
-  if(is.null(sampling_int) | is.null(unit_out)){
+  if (is.null(sampling_int) | is.null(unit_out)) {
     warning("No sampling interval and/or output unit specified. Returning raw output.")
-    sampling_int = 1
-    unit_out = "secs"
+    sampling_int <- 1
+    unit_out <- "secs"
   }
 
-  #Loop data
-  if(loop){
-    lightVar = c(lightVar, lightVar)
+  # Loop data
+  if (loop) {
+    lightVar <- c(lightVar, lightVar)
   }
 
   # Function to find longest cluster
-  max_clust = function(x){
-    x[is.na(x)] = 0
-    z = c(x, 0)
-    z = (cumsum(z) * c(diff(z) < 0, 0))
+  max_clust <- function(x) {
+    x[is.na(x)] <- 0
+    z <- c(x, 0)
+    z <- (cumsum(z) * c(diff(z) < 0, 0))
     max(diff(z[z != 0]))
   }
 
-  df = tibble::tibble(threshold = numeric(),
-                      cat_max = numeric())
-  for(c in threshold){
-    cat_max = (max_clust(threshold(lightVar, c)) * sampling_int) %>%
+  df <- tibble::tibble(
+    threshold = numeric(),
+    cat_max = numeric()
+  )
+  for (c in threshold) {
+    cat_max <- (max_clust(threshold(lightVar, c)) * sampling_int) %>%
       from.secs(unit_out)
-    df = df %>% tibble::add_row(threshold = c,
-                                cat_max = cat_max)
+    df <- df %>% tibble::add_row(
+      threshold = c,
+      cat_max = cat_max
+    )
   }
 
   # Reshape to wide format
-  if(wide){
-    df = df %>%
+  if (wide) {
+    df <- df %>%
       tidyr::pivot_wider(
         names_from = threshold,
         values_from = cat_max,
-        names_prefix = "cat_max.")
+        names_prefix = "cat_max."
+      )
   }
 
   # Return as data frame or numeric
-  if(as_df){
+  if (as_df) {
     return(df)
-  }
-  else{
+  } else {
     return(as.numeric(df))
   }
 }

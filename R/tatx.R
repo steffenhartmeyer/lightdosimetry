@@ -42,10 +42,10 @@ tat <- function(lightVar,
                 wide = TRUE) {
 
   # Check whether sampling interval and output unit specified
-  if(is.null(sampling_int) | is.null(unit_out)){
+  if (is.null(sampling_int) | is.null(unit_out)) {
     warning("No sampling interval and/or output unit specified. Returning raw output.")
-    sampling_int = 1
-    unit_out = "secs"
+    sampling_int <- 1
+    unit_out <- "secs"
   }
 
   df <- tibble::tibble(
@@ -95,10 +95,10 @@ tatr <- function(lightVar,
   }
 
   # Check whether sampling interval and output unit specified
-  if(is.null(sampling_int) | is.null(unit_out)){
+  if (is.null(sampling_int) | is.null(unit_out)) {
     warning("No sampling interval and/or output unit specified. Returning raw output.")
-    sampling_int = 1
-    unit_out = "secs"
+    sampling_int <- 1
+    unit_out <- "secs"
   }
 
   df <- tibble::tibble(

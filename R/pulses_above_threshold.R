@@ -65,7 +65,7 @@ pulses_above_threshold <- function(lightVar,
   }
 
   # Get sampling interval in seconds from data
-  sampling_int = as.numeric(timeVar[2]) - as.numeric(timeVar[1])
+  sampling_int <- as.numeric(timeVar[2]) - as.numeric(timeVar[1])
 
   # Loop data
   if (loop) {
