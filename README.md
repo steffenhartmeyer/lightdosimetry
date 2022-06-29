@@ -75,6 +75,13 @@ history =
     cumulative_exposure(light),
     dose_tatr(light, 100, 500, sampling_int = 60, unit_out = "mins")
   )
+  
+# Exponential smoothing
+history.ema =
+  example_light.awake %>%
+  dplyr::mutate(
+    ema = ema(light, "90 mins", sampling_int = 60)
+  )
 
 #Metrics from Barrosso et al.
 barrosso =
