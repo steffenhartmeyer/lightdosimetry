@@ -30,7 +30,7 @@ interdaily_stability <- function(lightVar,
   # Hourly averages for each day
   total_hourly <-
     tibble::tibble(light = lightVar, datetime = datetimeVar) %>%
-    dplyr::group_by(datetime = floor_date(datetime, unit = "1 hour")) %>%
+    dplyr::group_by(datetime = lubridate::floor_date(datetime, unit = "1 hour")) %>%
     dplyr::summarise(light = mean(light, na.rm = TRUE))
 
   # Hourly average across all days

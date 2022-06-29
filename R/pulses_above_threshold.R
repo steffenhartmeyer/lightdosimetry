@@ -182,8 +182,8 @@ pulses_above_threshold <- function(lightVar,
       from.secs(unit_pulse_length) %>%
       mean()
     p_time <- p_n * p_len
-    p_on <- unlist(lapply(clusters.time, first)) %>% mean(na.rm = TRUE)
-    p_off <- unlist(lapply(clusters.time, last)) %>% mean(na.rm = TRUE)
+    p_on <- unlist(lapply(clusters.time, dplyr::first)) %>% mean(na.rm = TRUE)
+    p_off <- unlist(lapply(clusters.time, dplyr::last)) %>% mean(na.rm = TRUE)
     p_mid <- unlist(lapply(clusters.time, mean)) %>% mean(na.rm = TRUE)
     df <- df %>%
       tibble::add_row(

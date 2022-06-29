@@ -18,5 +18,5 @@ threshold <- function(lightVar, threshold) {
   } else {
     out <- lightVar >= threshold
   }
-  replace_na(out, FALSE)
+  tidyr::replace_na(out, FALSE)
 }

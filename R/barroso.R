@@ -3,7 +3,7 @@
 #' @param lightVar Numeric vector containing the light data.
 #' @param sampling_int Numeric. Sampling interval in seconds.
 #' @param unit_out_clength String. Time unit of the bright/dark cluster length.
-#'    Possible values are ("seconds", "minutes", "hours", "days"), which can be $
+#'    Possible values are ("seconds", "minutes", "hours", "days"), which can be
 #'    abbreviated.
 #' @param loop Logical. Should the data be looped? Defaults to FALSE.
 #' @param na_rm Logical. Should missing values be removed? Defaults to TRUE.
@@ -39,15 +39,15 @@ barroso <- function(lightVar,
   # Bright/dark cluster
   cB <- cat_max(lightVar, tB,
     sampling_int = sampling_int,
-    unit_out = unit_out, loop = loop, as_df = FALSE
+    unit_out = unit_out_clength, loop = loop, as_df = FALSE
   )[1]
   cD <- cat_max(lightVar, -1 * (tD + 0.01),
     sampling_int = sampling_int,
-    unit_out = unit_out, loop = loop, as_df = FALSE
+    unit_out = unit_out_clength, loop = loop, as_df = FALSE
   )[1]
 
   # Circadian variation
-  civ <- coeff_var(lightVar, na.rm = na_rm, as_df = FALSE)
+  civ <- coeff_var(lightVar, na_rm = na_rm, as_df = FALSE)
 
   # Store in dataframe
   df <- tibble::tibble(

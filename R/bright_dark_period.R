@@ -71,7 +71,7 @@ bright_dark_period <- function(lightVar,
     parsed_ts <- parse_timeunit_tosecs(ts)
 
     # Calculate window size
-    window <- (parsed_ts$secs / sampling_int) %>% floor()
+    window <- floor(parsed_ts$secs / sampling_int)
     if (window %% 2 != 0) window <- window + 1
 
     # Calculate rolling means
@@ -98,7 +98,7 @@ bright_dark_period <- function(lightVar,
 
   # Convert to POSIXct
   if (lubridate::is.POSIXct(timeVar)) {
-    df <- df %>% mutate_at(vars(midpoint:offset),
+    df <- df %>% dplyr::mutate_at(dplyr::vars(midpoint:offset),
       lubridate::as_datetime,
       tz = lubridate::tz(timeVar)
     )

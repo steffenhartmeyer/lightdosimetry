@@ -30,8 +30,8 @@ lqi <- function(lightVar,
                 upper = 500,
                 lower = 10,
                 as_df = TRUE) {
-  high <- tat(lightVar, upper)[[1]]
-  low <- tat(lightVar, -1 * lower)[[1]]
+  high <- suppressWarnings(tat(lightVar, upper)[[1]])
+  low <- suppressWarnings(tat(lightVar, -1 * lower)[[1]])
   lqi <- (high - low) / (high + low)
   if (as_df) {
     return(tibble::tibble(LQI = lqi))

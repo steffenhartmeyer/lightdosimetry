@@ -30,7 +30,7 @@ intradaily_variability <- function(lightVar,
   # Hourly averages for each day
   total_hourly <-
     tibble::tibble(light = lightVar, datetime = datetimeVar) %>%
-    dplyr::group_by(floor_date(datetime, unit = "1 hour")) %>%
+    dplyr::group_by(lubridate::floor_date(datetime, unit = "1 hour")) %>%
     dplyr::summarise(light = mean(light, na.rm = TRUE))
 
   # Variance of consecutive hourly differences

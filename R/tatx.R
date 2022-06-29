@@ -109,7 +109,7 @@ tatr <- function(lightVar,
   for (i in 1:length(lower)) {
     cmin <- lower[i]
     cmax <- upper[i]
-    tat <- (sum(between(lightVar, cmin, cmax)) * sampling_int) %>%
+    tat <- (sum(dplyr::between(lightVar, cmin, cmax)) * sampling_int) %>%
       from.secs(unit_out)
     df <- df %>%
       tibble::add_row(

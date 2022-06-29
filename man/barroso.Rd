@@ -19,7 +19,7 @@ barroso(
 \item{sampling_int}{Numeric. Sampling interval in seconds.}
 
 \item{unit_out_clength}{String. Time unit of the bright/dark cluster length.
-Possible values are ("seconds", "minutes", "hours", "days"), which can be $
+Possible values are ("seconds", "minutes", "hours", "days"), which can be
 abbreviated.}
 
 \item{loop}{Logical. Should the data be looped? Defaults to FALSE.}

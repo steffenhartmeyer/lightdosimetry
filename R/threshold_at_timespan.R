@@ -43,7 +43,7 @@ threshold_at_timespan <- function(lightVar,
   )
   for (ts in timespan) {
     parsed_ts <- parse_timeunit_tosecs(ts)
-    idx <- (parsed_ts$secs / sampling_int) %>% floor()
+    idx <- floor(parsed_ts$secs / sampling_int)
     sorted <- sort(lightVar, decreasing = above)
     threshold <- sorted[idx]
     df <- df %>% tibble::add_row(
