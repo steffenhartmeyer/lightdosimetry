@@ -28,10 +28,14 @@ disparity_index <- function(lightVar,
     lightVar <- na.omit(lightVar)
   }
 
-  # Calculate disparity index
-  fractions <- (lightVar[2:length(lightVar)] + 1) /
-    (lightVar[1:length(lightVar) - 1] + 1)
-  di <- 1 / (length(lightVar) - 1) * sum(abs(log(fractions)))
+  if (length(lightVar) == 1) {
+    di <- 0
+  } else {
+    # Calculate disparity index
+    fractions <- (lightVar[2:length(lightVar)] + 1) /
+      (lightVar[1:length(lightVar) - 1] + 1)
+    di <- 1 / (length(lightVar) - 1) * sum(abs(log(fractions)))
+  }
 
   # Return as data frame or numeric vector
   if (as_df) {
