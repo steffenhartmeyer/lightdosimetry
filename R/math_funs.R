@@ -22,7 +22,7 @@ NULL
 #'
 geomean <- function(x, trim = 0, na.rm = FALSE, base = exp(1)) {
   x[x == 0] <- 1
-  exp(mean(log(x, base = exp(1)), trim = trim, na.rm = na.rm))
+  exp(mean(log(x, base = base), trim = trim, na.rm = na.rm))
 }
 
 #' @rdname math_funs
@@ -33,7 +33,7 @@ geomean <- function(x, trim = 0, na.rm = FALSE, base = exp(1)) {
 #'
 geosd <- function(x, na.rm = FALSE, base = exp(1)) {
   x[x == 0] <- 1
-  exp(sd(log(x, base = exp(1)), na.rm = na.rm))
+  exp(sd(log(x, base = base), na.rm = na.rm))
 }
 
 #' @rdname math_funs

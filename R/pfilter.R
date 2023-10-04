@@ -11,11 +11,12 @@
 #'
 #' @examples
 pfilter <- function(df, ...) {
+  N <- nrow(df)
   vars <- as.list(substitute(list(...)))[-1L]
   for (arg in vars) {
     df_new <- df %>% filter(!!arg)
     rows_filtered <- nrow(df) - nrow(df_new)
-    percent_filtered <- rows_filtered / nrow(df) * 100
+    percent_filtered <- rows_filtered / N * 100
     cat(sprintf(
       "Filtered out %s rows (%.2f%%) using: %s\n",
       rows_filtered, percent_filtered, deparse(arg)
