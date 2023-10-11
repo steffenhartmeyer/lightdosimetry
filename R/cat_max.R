@@ -44,7 +44,7 @@ cat_max <- function(lightVar,
     x[is.na(x)] <- 0
     z <- c(x, 0)
     z <- (cumsum(z) * c(diff(z) < 0, 0))
-    max(diff(z[z != 0]))
+    max(diff(c(0, 0, z[z != 0])))
   }
 
   df <- tibble::tibble(

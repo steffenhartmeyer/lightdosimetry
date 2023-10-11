@@ -53,7 +53,7 @@ tat <- function(lightVar,
     tat = numeric()
   )
   for (c in threshold) {
-    tat <- (sum(threshold(lightVar, c)) * sampling_int) %>%
+    tat <- (sum(threshold(lightVar, c), na.rm = TRUE) * sampling_int) %>%
       from.secs(unit_out)
     df <- df %>% tibble::add_row(threshold = c, tat = tat)
   }
@@ -109,7 +109,7 @@ tatr <- function(lightVar,
   for (i in 1:length(lower)) {
     cmin <- lower[i]
     cmax <- upper[i]
-    tat <- (sum(dplyr::between(lightVar, cmin, cmax)) * sampling_int) %>%
+    tat <- (sum(dplyr::between(lightVar, cmin, cmax), na.rm = TRUE) * sampling_int) %>%
       from.secs(unit_out)
     df <- df %>%
       tibble::add_row(

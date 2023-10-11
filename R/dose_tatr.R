@@ -52,7 +52,7 @@ dose_tatr <- function(lightVar,
   for (i in 1:length(lower)) {
     cmin <- lower[i]
     cmax <- upper[i]
-    dose_tat <- (sum(dplyr::between(lightVar, cmin, cmax)) * sampling_int) %>%
+    dose_tat <- (sum(dplyr::between(lightVar, cmin, cmax), na.rm = TRUE) * sampling_int) %>%
       from.secs(unit_out) * ((cmax - cmin) / 2)
     df <- df %>% tibble::add_row(
       threshold_min = cmin,

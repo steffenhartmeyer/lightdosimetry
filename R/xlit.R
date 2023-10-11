@@ -40,9 +40,14 @@ mlit <- function(lightVar,
 
   # Calculate MLiT
   for (c in threshold) {
-    mlit <- timeVar[threshold(lightVar, c)] %>%
-      as.numeric() %>%
-      mean()
+    if(length(timeVar[threshold(lightVar, c)]) > 0){
+      mlit <- timeVar[threshold(lightVar, c)] %>%
+        as.numeric() %>%
+        mean()
+    }
+    else{
+      mlit = NA
+    }
     df <- df %>% tibble::add_row(threshold = c, mlit = mlit)
   }
 
@@ -90,7 +95,12 @@ flit <- function(lightVar,
 
   # Calculate FLiT
   for (c in threshold) {
-    flit <- timeVar[threshold(lightVar, c)][1] %>% as.numeric()
+    if(length(timeVar[threshold(lightVar, c)]) > 0){
+      flit <- timeVar[threshold(lightVar, c)][1] %>% as.numeric()
+    }
+    else{
+      flit = NA
+    }
     df <- df %>% tibble::add_row(threshold = c, flit = flit)
   }
 
@@ -136,9 +146,14 @@ llit <- function(lightVar,
 
   # Calculate LLiT
   for (c in threshold) {
-    llit <- timeVar[threshold(lightVar, c)] %>%
-      dplyr::last() %>%
-      as.numeric()
+    if(length(timeVar[threshold(lightVar, c)]) > 0){
+      llit <- timeVar[threshold(lightVar, c)] %>%
+        dplyr::last() %>%
+        as.numeric()
+    }
+    else{
+      llit = NA
+    }
     df <- df %>% tibble::add_row(threshold = c, llit = llit)
   }
 

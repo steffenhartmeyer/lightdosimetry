@@ -178,6 +178,8 @@ nvR_circadianResponse <- function(irr_mel,
 #'
 #' @param RD Time series of direct response (see \code{\link{directResponse}}.
 #' @param sampling_int Numeric. Sampling interval in seconds.
+#' @param unit_out Character. Time unit of output. Possible values are
+#'    ("seconds", "minutes", "hours", "days"), which can be abbreviated.
 #' @param as_df Logical. Should the output be returned as a data frame? Defaults
 #'    to TRUE.
 #'
@@ -197,8 +199,12 @@ NULL
 #'
 #' @export
 #'
-nvR_cumulativeResponse <- function(RD, sampling_int, as_df = TRUE) {
-  rd <- sum(RD) * to.hours(sampling_int, "s")
+nvR_cumulativeResponse <- function(RD,
+                                   sampling_int,
+                                   unit_out = "hours",
+                                   as_df = TRUE) {
+
+  rd <- (sum(RD) * sampling_int) %>% from.secs(unit_out)
 
   if (as_df) {
     return(tibble::tibble(nvR_RD = rd))
