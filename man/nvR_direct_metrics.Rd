@@ -5,12 +5,15 @@
 \alias{nvR_cumulativeResponse}
 \title{Performance metrics for direct response}
 \usage{
-nvR_cumulativeResponse(RD, sampling_int, as_df = TRUE)
+nvR_cumulativeResponse(RD, sampling_int, unit_out = "hours", as_df = TRUE)
 }
 \arguments{
 \item{RD}{Time series of direct response (see \code{\link{directResponse}}.}
 
 \item{sampling_int}{Numeric. Sampling interval in seconds.}
+
+\item{unit_out}{Character. Time unit of output. Possible values are
+("seconds", "minutes", "hours", "days"), which can be abbreviated.}
 
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}

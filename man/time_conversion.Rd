@@ -34,9 +34,6 @@ from.days(t, unit)
 \item{unit}{Time unit as string. Possible values are ("seconds","minutes",
 "hours","days"). Units can be abbreviated.}
 }
-\value{
-
-}
 \description{
 Convenience functions for converting between time units.
 }

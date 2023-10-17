@@ -28,6 +28,3 @@ Regularised time data.
 \description{
 This function fills in gaps in a data frame containing time series data.
 }
-\examples{
-
-}

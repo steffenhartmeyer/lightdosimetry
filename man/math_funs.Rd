@@ -28,9 +28,6 @@ are taken as the nearest endpoint. See \code{\link[base]{mean}}}
 \item{base}{A positive or complex number: the base with respect to which
 logarithms are computed. Defaults to `exp(1)`.}
 }
-\value{
-
-}
 \description{
 Mathematical helper functions
 }

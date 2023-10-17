@@ -23,9 +23,6 @@ for reference light exposure pattern. Length must be 24h.}
 \item{as_df}{Logical. Should the output be returned as a data frame? Defaults
 to TRUE.}
 }
-\value{
-
-}
 \description{
 Performance metrics for circadian response
 }
