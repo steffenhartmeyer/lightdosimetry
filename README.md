@@ -16,8 +16,6 @@ import, processing and analysis pipelines for light-dosimetry data. Please check
 
 
 
-# lightdosimetry
-Functions for quantifying personal light exposure in R.
 
 ## Installation
 
