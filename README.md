@@ -5,26 +5,17 @@ the development of the LightLogR package, which can be found here: https://githu
 
 All functions included in this package will be available in the LightLogR package, which enables
 import, processing and analysis pipelines for light-dosimetry data. Please check it out!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---------
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
 
 ## Installation
 
