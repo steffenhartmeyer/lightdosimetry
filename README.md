@@ -1,5 +1,23 @@
+# DEPRECATED
+
+This repository is no longer maintained as the package development has been merged with 
+the development of the LightLogR package, which can be found here: https://github.com/tscnlab/LightLogR
+
+All functions included in this package will be available in the LightLogR package, which enables
+import, processing and analysis pipelines for light-dosimetry data. Please check it out!
+
+
+
+
+
+
+
+
+
+
+
 # lightdosimetry
-Functions for quantifying personal light exposure in R (.
+Functions for quantifying personal light exposure in R.
 
 ## Installation
 
