@@ -17,6 +17,15 @@ import, processing and analysis pipelines for light-dosimetry data. Please check
 
 
 
+
+
+
+
+
+
+
+--------
+
 ## Installation
 
 You can install the released version of the lightdosimetry package using:
