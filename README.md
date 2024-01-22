@@ -3,8 +3,8 @@
 This repository is no longer maintained as the package development has been merged with 
 the development of the LightLogR package, which can be found here: https://github.com/tscnlab/LightLogR
 
-All functions included in this package will be available in the LightLogR package, which enables
-import, processing and analysis pipelines for light-dosimetry data. Please check it out!
+All functions included in this package will be available in the LightLogR package, which offers
+handy importing, processing and analysis pipelines for light-dosimetry data all in one package. Please check it out!
 <br />
 <br />
 <br />
