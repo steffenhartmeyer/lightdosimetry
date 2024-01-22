@@ -1,3 +1,4 @@
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 # DEPRECATED
 
 This repository is no longer maintained as the package development has been merged with 
@@ -14,7 +15,6 @@ handy importing, processing and analysis pipelines for light-dosimetry data all 
 <br />
 <br />
 <br />
-[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 ## Installation
 
